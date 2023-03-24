@@ -1,0 +1,183 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Jon doe",
+      "phone": "0980090",
+      "area": "Warje",
+      "address": "Warje",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "600"
+        },
+        {
+          "title": "NC",
+          "price": "150"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Laetitia Pain",
+      "phone": "705-182-9429",
+      "area": "Shimotoda",
+      "address": "03710 Vera Road",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "600"
+        },
+        {
+          "title": "NC",
+          "price": "200"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Paxton Runacres",
+      "phone": "815-183-9049",
+      "area": "Krajan Dermawuharjo",
+      "address": "10 Porter Trail",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "550"
+        },
+        {
+          "title": "NC",
+          "price": "200"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Rorie Ratt",
+      "phone": "650-859-8840",
+      "area": "Zhougao",
+      "address": "81 Stone Corner Point",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "550"
+        },
+        {
+          "title": "NC",
+          "price": "200"
+        },
+        {
+          "title": "ACRYLIC",
+          "price": "100"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Kristoffer Blaske",
+      "phone": "515-558-4736",
+      "area": "Totok",
+      "address": "0 Toban Circle",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "550"
+        },
+        {
+          "title": "NC",
+          "price": "200"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Chaddy Hakking",
+      "phone": "146-541-9952",
+      "area": "Grenoble",
+      "address": "4961 Clarendon Plaza",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "600"
+        },
+        {
+          "title": "NC",
+          "price": "200"
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "phone": "9898989898",
+      "area": "kothrud",
+      "address": "kothrud",
+      "typeOfWorks": [
+        {
+          "title": "PFM",
+          "price": "600"
+        },
+        {
+          "title": "ACRYLIC",
+          "price": "100"
+        }
+      ],
+      "id": 9
+    }
+  ],
+  "workTypes": [
+    {
+      "title": "PFM",
+      "id": 1
+    },
+    {
+      "title": "NC",
+      "id": 2
+    },
+    {
+      "title": "ACRYLIC",
+      "id": 3
+    }
+  ],
+  "bills": [
+    {
+      "doctorId": "1",
+      "doctorName": "Jon doe",
+      "doctorAddress": "Warje",
+      "createdAt": "2023-22-03",
+      "fromDate": "2023-03-01",
+      "tillDate": "2023-03-31",
+      "totalAmount": 2700,
+      "jobs": [
+        {
+          "date": "2023-03-08",
+          "jobNo": 1,
+          "patientName": "vishal",
+          "works": [
+            {
+              "title": "PFM",
+              "topLeft": "1",
+              "topRight": "1",
+              "bottomLeft": "1",
+              "bottomRight": "1"
+            }
+          ],
+          "price": 2400
+        },
+        {
+          "date": "2023-03-03",
+          "jobNo": 12,
+          "patientName": "test",
+          "works": [
+            {
+              "title": "NC",
+              "bottomLeft": "1",
+              "topRight": "2"
+            }
+          ],
+          "price": 300
+        }
+      ],
+      "id": 1
+    }
+  ]
+}
