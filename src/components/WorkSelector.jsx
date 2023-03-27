@@ -71,8 +71,14 @@ const WorkSelector = ({
         overflowY="auto"
         direction="column"
         sx={{
-          "::-webkit-scrollbar": {
-            display: "none",
+          "&::-webkit-scrollbar": {
+            width: "5px",
+            borderRadius: "10px",
+            backgroundColor: `rgba(0, 0, 0, 0.05)`,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            borderRadius: "10px",
+            backgroundColor: `rgba(0, 0, 0, 0.3)`,
           },
         }}
       >
