@@ -1,15 +1,16 @@
-import { Button, Checkbox, Flex, Input } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Checkbox, Flex } from "@chakra-ui/react";
+import React from "react";
 
 const JobWorkSelector = ({ typeOfWorks, selectTypeOfWork }) => {
   return (
     <Flex
       borderWidth={1}
       borderRadius={15}
-      padding={5}
+      padding={2}
       direction="column"
       gap={3}
-      width={"20vw"}
+      minWidth="15vw"
+      boxShadow="md"
     >
       <Flex
         maxHeight={"40vh"}
@@ -25,9 +26,9 @@ const JobWorkSelector = ({ typeOfWorks, selectTypeOfWork }) => {
           <Checkbox
             key={index}
             size="lg"
-            id={el._id}
             name={el.title}
-            onChange={selectTypeOfWork}
+            spacing="1rem"
+            onChange={(event) => selectTypeOfWork(event, el)}
           >
             {el.title}
           </Checkbox>
