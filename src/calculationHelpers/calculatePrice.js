@@ -1,30 +1,29 @@
-const calculatePrice = (works, typeOfWorks) => {
-  const numberMap = new Map();
+const calculatePrice = (selectedWorks, typeOfWorks) => {
+  const priceMap = new Map();
   let total = 0;
 
   for (let work of typeOfWorks) {
-    numberMap.set(work.title, Number(work.price));
+    priceMap.set(work.title, Number(work.price));
   }
 
-  for (let work of works) {
+  for (let work of selectedWorks) {
     let currTotal = 0;
 
-    if (work.topLeft) {
-      currTotal += work.topLeft.split(",").length * numberMap.get(work.title);
+    if (work.topLeft && work.topLeft != "") {
+      currTotal += work.topLeft.split(",").length * priceMap.get(work.title);
     }
 
-    if (work.topRight) {
-      currTotal += work.topRight.split(",").length * numberMap.get(work.title);
+    if (work.topRight && work.topRight != "") {
+      currTotal += work.topRight.split(",").length * priceMap.get(work.title);
     }
 
-    if (work.bottomLeft) {
+    if (work.bottomLeft && work.bottomLeft != "") {
+      currTotal += work.bottomLeft.split(",").length * priceMap.get(work.title);
+    }
+
+    if (work.bottomRight && work.bottomRight != "") {
       currTotal +=
-        work.bottomLeft.split(",").length * numberMap.get(work.title);
-    }
-
-    if (work.bottomRight) {
-      currTotal +=
-        work.bottomRight.split(",").length * numberMap.get(work.title);
+        work.bottomRight.split(",").length * priceMap.get(work.title);
     }
 
     total += currTotal;
