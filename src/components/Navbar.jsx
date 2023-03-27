@@ -10,12 +10,20 @@ const Navbar = () => {
       bg="#f7f7fb"
       boxShadow="md"
     >
-      <Heading as="h4" size="md">
-        Shree Laxmi Dental Lab
-      </Heading>
+      <Link to="/">
+        <Heading as="h4" size="md">
+          Shree Laxmi Dental Lab
+        </Heading>
+      </Link>
       <Flex gap={6}>
         <Link to="/">
-          <Text fontSize="lg">Doctor</Text>
+          <Text fontSize="lg">Jobs</Text>
+        </Link>
+        <Link to="/addJob">
+          <Text fontSize="lg">Add Job</Text>
+        </Link>
+        <Link to="/doctor">
+          <Text fontSize="lg">Doctors</Text>
         </Link>
         <Link to="/addDoctor">
           <Text fontSize="lg">Add Doctor</Text>
