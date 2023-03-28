@@ -8,7 +8,10 @@ import DummyAvatar from "../components/DummyAvatar";
 import FormTable from "../components/FormTable";
 import WorkPriceTable from "../components/WorkPriceTable";
 import WorkSelector from "../components/WorkSelector";
-import { addDoctorHelper } from "../reduxStore/doctor/doctorActions";
+import {
+  addDoctorHelper,
+  updateDoctorHelper,
+} from "../reduxStore/doctor/doctorActions";
 import { loadWorkTypesHelper } from "../reduxStore/workType/workTypeActions";
 
 const initialData = {
@@ -126,7 +129,11 @@ const AddDoctor = () => {
         isClosable: true,
       });
     } else {
-      dispatch(addDoctorHelper(doctor, toast, navigate));
+      if (id) {
+        dispatch(updateDoctorHelper(doctor, toast, navigate));
+      } else {
+        dispatch(addDoctorHelper(doctor, toast, navigate));
+      }
     }
   };
 
@@ -155,15 +162,23 @@ const AddDoctor = () => {
           onClick={submitDoctor}
         />
       </Flex>
-      <Flex gap={10} alignItems="flex-start" paddingX={5} marginTop={10}>
+      <Flex
+        gap={10}
+        alignItems="flex-start"
+        paddingX={5}
+        marginTop={10}
+        justifyContent="center"
+      >
         <WorkSelector
           selectedWorkTypes={doctor.typeOfWorks.map((e) => e.title)}
           selectTypeOfWork={selectTypeOfWork}
         />
-        <WorkPriceTable
-          typeOfWorks={doctor.typeOfWorks}
-          updateWorkPrice={updateWorkPrice}
-        />
+        <Box>
+          <WorkPriceTable
+            typeOfWorks={doctor.typeOfWorks}
+            updateWorkPrice={updateWorkPrice}
+          />
+        </Box>
       </Flex>
     </Box>
   );
