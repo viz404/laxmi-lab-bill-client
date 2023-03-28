@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   Heading,
-  HStack,
   Input,
   Modal,
   ModalBody,
@@ -13,8 +12,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Table,
-  Tag,
-  TagLabel,
   Tbody,
   Td,
   Text,
@@ -25,10 +22,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import trimDate from "../calculationHelpers/trimDate";
-import DoctorSelector from "../components/DoctorSelector";
+import DoctorSelectorRadio from "../components/DoctorSelectorRadio";
 import { deleteJobHelper, loadJobsHelper } from "../reduxStore/jobs/jobActions";
 
 const Jobs = () => {
@@ -62,7 +61,7 @@ const Jobs = () => {
     <Box paddingTop={5} paddingX={10}>
       <Flex justifyContent="space-between">
         <Flex alignItems="flex-start" direction="column" gap={10}>
-          <DoctorSelector selectDoctor={setDoctor} />
+          <DoctorSelectorRadio selectDoctor={setDoctor} initialIndex="" />
           <Flex
             alignItems="center"
             justifyContent="space-between"
@@ -99,18 +98,6 @@ const Jobs = () => {
               <Button onClick={() => setTillDate("")}>X</Button>
             )}
           </Flex>
-          {doctor.name && (
-            <HStack spacing={4}>
-              <Tag
-                size="lg"
-                borderRadius="full"
-                variant="solid"
-                colorScheme="blue"
-              >
-                <TagLabel>{doctor.name}</TagLabel>
-              </Tag>
-            </HStack>
-          )}
         </Flex>
         <Box>
           <Box
