@@ -13,11 +13,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import calculatePriceV2 from "../calculationHelpers/calculatePriceV2";
 
 import DoctorSelector from "../components/DoctorSelector";
 import JobWorkSelector from "../components/JobWorkSelector";
+import { addJobHandler } from "../reduxStore/jobs/jobActions";
 
 const AddJob = () => {
   const [date, setDate] = useState("");
@@ -29,6 +31,7 @@ const AddJob = () => {
 
   const toast = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const updateDoctor = (selectedDoctor) => {
     if (selectedDoctor._id) {
@@ -63,6 +66,11 @@ const AddJob = () => {
     const { id: index, name: position, value } = event.target;
 
     works[index][position] = value;
+
+    if (works[index][position] == "") {
+      delete works[index][position];
+    }
+
     setWorks([...works]);
   };
 
@@ -82,7 +90,7 @@ const AddJob = () => {
         missing.push("Patient name");
       }
 
-      if (!doctor._id) {
+      if (!doctor.name) {
         missing.push("Doctor");
       }
 
@@ -104,7 +112,7 @@ const AddJob = () => {
         price: calculatePriceV2(works),
       };
 
-      console.log(jobObj);
+      dispatch(addJobHandler(jobObj, toast, navigate));
     } catch (error) {
       toast({
         title: "Error",
@@ -188,7 +196,7 @@ const AddJob = () => {
                   <Text fontSize="md">Work Types</Text>
                 </Th>
                 <Td borderWidth={0}>
-                  <Text></Text>
+                  <Text>{works.map((e) => e.title).join(", ")}</Text>
                 </Td>
               </Tr>
             </Tbody>
