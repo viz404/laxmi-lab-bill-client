@@ -1,28 +1,117 @@
-import { Box, Button, Flex, Input } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Table,
+  Tag,
+  TagLabel,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import trimDate from "../calculationHelpers/trimDate";
 import DoctorSelector from "../components/DoctorSelector";
+import { deleteJobHelper, loadJobsHelper } from "../reduxStore/jobs/jobActions";
 
 const Jobs = () => {
-  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [doctor, setDoctor] = useState({});
+  const [fromDate, setFromDate] = useState("");
+  const [tillDate, setTillDate] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState("");
 
-  const { total } = useSelector((store) => store.job);
+  const { jobs, total } = useSelector((store) => store.job);
+
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    dispatch(
+      loadJobsHelper({
+        toast,
+        doctor_id: doctor._id || "",
+        from_date: fromDate,
+        till_date: tillDate,
+        _limit: 20,
+        _page: page,
+      })
+    );
+  }, [doctor, fromDate, tillDate, page]);
 
   return (
-    <Box padding={3}>
-      <Box margin="5rem auto" width="50vw">
-        <Input
-          placeholder="Enter Patient name"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </Box>
+    <Box paddingTop={5} paddingX={10}>
       <Flex justifyContent="space-between">
-        <Box>
+        <Flex alignItems="flex-start" direction="column" gap={10}>
           <DoctorSelector selectDoctor={setDoctor} />
-        </Box>
+          <Flex
+            alignItems="center"
+            justifyContent="space-between"
+            gap={5}
+            width="100%"
+          >
+            <Heading as="h5" size="sm">
+              From
+            </Heading>
+            <Input
+              type="date"
+              value={fromDate}
+              onChange={(e) => setFromDate(e.target.value)}
+            />
+            {fromDate != "" && (
+              <Button onClick={() => setFromDate("")}>X</Button>
+            )}
+          </Flex>
+          <Flex
+            alignItems="center"
+            justifyContent="space-between"
+            gap={5}
+            width="100%"
+          >
+            <Heading as="h5" size="sm">
+              To
+            </Heading>
+            <Input
+              type="date"
+              value={tillDate}
+              onChange={(e) => setTillDate(e.target.value)}
+            />
+            {tillDate != "" && (
+              <Button onClick={() => setTillDate("")}>X</Button>
+            )}
+          </Flex>
+          {doctor.name && (
+            <HStack spacing={4}>
+              <Tag
+                size="lg"
+                borderRadius="full"
+                variant="solid"
+                colorScheme="blue"
+              >
+                <TagLabel>{doctor.name}</TagLabel>
+              </Tag>
+            </HStack>
+          )}
+        </Flex>
         <Box>
           <Box
             margin="2rem 8rem"
@@ -30,6 +119,8 @@ const Jobs = () => {
             overflowY="auto"
             borderWidth={1}
             borderRadius={10}
+            borderColor="grey"
+            borderBottomWidth={0}
             scrollBehavior="smooth"
             sx={{
               "&::-webkit-scrollbar": {
@@ -42,8 +133,126 @@ const Jobs = () => {
                 backgroundColor: `rgba(0, 0, 0, 0.3)`,
               },
             }}
-          ></Box>
-          <Flex justifyContent="space-between" width="70vw" margin="2rem auto">
+          >
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th borderRightWidth={1} borderColor="grey">
+                    <Heading as="h5" size="sm">
+                      Date
+                    </Heading>
+                  </Th>
+                  <Th borderRightWidth={1} borderColor="grey">
+                    <Heading as="h5" size="sm">
+                      Job No
+                    </Heading>
+                  </Th>
+                  <Th borderRightWidth={1} borderColor="grey">
+                    <Heading as="h5" size="sm">
+                      Patient Name
+                    </Heading>
+                  </Th>
+                  <Th borderRightWidth={1} borderColor="grey">
+                    <Heading as="h5" size="sm">
+                      Doctor Name
+                    </Heading>
+                  </Th>
+                  <Th borderRightWidth={1} borderColor="grey">
+                    <Heading as="h5" size="sm">
+                      Type of work
+                    </Heading>
+                  </Th>
+                  <Th borderRightWidth={1} borderBottomColor="grey">
+                    <Heading as="h5" size="sm">
+                      Description
+                    </Heading>
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {jobs.map((el, index) => (
+                  <Tr
+                    key={index}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      onOpen();
+                    }}
+                  >
+                    <Td borderRightWidth={1} borderColor="grey">
+                      {trimDate(el.date)}
+                    </Td>
+                    <Td borderRightWidth={1} borderColor="grey">
+                      {el.jobNumber}
+                    </Td>
+                    <Td borderRightWidth={1} borderColor="grey">
+                      {el.patientName}
+                    </Td>
+                    <Td borderRightWidth={1} borderColor="grey">
+                      {el.doctorName}
+                    </Td>
+                    <Td borderRightWidth={1} borderColor="grey">
+                      {el.works.map((e) => e.title).join(", ")}
+                    </Td>
+                    <Td borderRightWidth={1} borderBottomColor="grey">
+                      <Flex direction="column" gap={3}>
+                        {el.works.map((ele) => (
+                          <Flex justifyContent="space-between" key={ele.title}>
+                            <Text>{ele.title}</Text>
+                            <Table width="fit-content">
+                              <Tbody>
+                                <Tr>
+                                  <Td
+                                    padding={0}
+                                    borderRightWidth={1}
+                                    borderColor="blackAlpha.500"
+                                    paddingRight={1}
+                                  >
+                                    <Text>{ele.topLeft}</Text>
+                                  </Td>
+                                  <Td
+                                    padding={0}
+                                    borderBottomWidth={1}
+                                    borderColor="blackAlpha.500"
+                                    paddingLeft={1}
+                                  >
+                                    <Text>{ele.topRight}</Text>
+                                  </Td>
+                                </Tr>
+                                <Tr>
+                                  <Td
+                                    padding={0}
+                                    borderRightWidth={1}
+                                    borderColor="blackAlpha.500"
+                                    borderBottomWidth={0}
+                                    paddingRight={1}
+                                  >
+                                    <Text>{ele.bottomLeft}</Text>
+                                  </Td>
+                                  <Td
+                                    padding={0}
+                                    borderBottomWidth={0}
+                                    paddingLeft={1}
+                                  >
+                                    <Text>{ele.bottomRight}</Text>
+                                  </Td>
+                                </Tr>
+                              </Tbody>
+                            </Table>
+                          </Flex>
+                        ))}
+                      </Flex>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Box>
+          <Flex
+            justifyContent="space-between"
+            width="70vw"
+            margin="2rem auto"
+            alignItems="center"
+          >
             <Button
               colorScheme="blue"
               isDisabled={page == 1}
@@ -51,9 +260,12 @@ const Jobs = () => {
             >
               Prev
             </Button>
+            <Text>
+              Page: {page} of {Math.ceil(Number(total) / 20)}
+            </Text>
             <Button
               colorScheme="blue"
-              isDisabled={total - 10 * page < 0}
+              isDisabled={page == Math.ceil(Number(total) / 20)}
               onClick={() => setPage((prev) => prev + 1)}
             >
               Next
@@ -61,6 +273,64 @@ const Jobs = () => {
           </Flex>
         </Box>
       </Flex>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader></ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Table>
+              <Tbody>
+                <Tr>
+                  <Th>Job Number</Th>
+                  <Td>{jobs[selectedIndex]?.jobNumber}</Td>
+                </Tr>
+                <Tr>
+                  <Th>Patient Name</Th>
+                  <Td>{jobs[selectedIndex]?.patientName}</Td>
+                </Tr>
+                <Tr>
+                  <Th>Doctor Name</Th>
+                  <Td>{jobs[selectedIndex]?.doctorName}</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              colorScheme="red"
+              mr={3}
+              onClick={() => {
+                dispatch(
+                  deleteJobHelper({
+                    id: jobs[selectedIndex]?._id,
+                    number: jobs[selectedIndex]?.jobNumber,
+                    toast,
+                  })
+                );
+                onClose();
+              }}
+            >
+              Delete
+            </Button>
+            <Button
+              colorScheme="yellow"
+              mr={3}
+              onClick={() => {
+                navigate(`/editJob/${jobs[selectedIndex]?._id}`);
+              }}
+            >
+              Edit
+            </Button>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
