@@ -2,20 +2,24 @@ import {
   Box,
   Checkbox,
   Flex,
+  HStack,
   Input,
   Radio,
   RadioGroup,
   Stack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDoctorsHelper } from "../reduxStore/doctor/doctorActions";
 
-const DoctorSelectorRadio = ({ selectDoctor, initialIndex = "" }) => {
+const DoctorSelectorRadio = ({ selectDoctor }) => {
   const { doctors } = useSelector((store) => store.doctor);
   const [search, setSearch] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(initialIndex);
+  const [selectedIndex, setSelectedIndex] = useState("");
 
   const timerRef = useRef();
   const dispatch = useDispatch();
@@ -42,10 +46,9 @@ const DoctorSelectorRadio = ({ selectDoctor, initialIndex = "" }) => {
     }
   }, [selectedIndex]);
 
-  const onSelect = () => {
-    console.log(selectedIndex);
-
-    // selectDoctor(selectedDoctor);
+  const resetDoctor = () => {
+    selectDoctor({});
+    setSelectedIndex("");
   };
 
   return (
@@ -78,7 +81,7 @@ const DoctorSelectorRadio = ({ selectDoctor, initialIndex = "" }) => {
           },
         }}
       >
-        <RadioGroup>
+        <RadioGroup value={selectedIndex}>
           <Stack
             spacing={1}
             direction="column"
@@ -100,6 +103,14 @@ const DoctorSelectorRadio = ({ selectDoctor, initialIndex = "" }) => {
           </Stack>
         </RadioGroup>
       </Flex>
+      {doctors[selectedIndex]?.name && (
+        <HStack spacing={4}>
+          <Tag size="md" borderRadius="full" variant="solid" colorScheme="blue">
+            <TagLabel>{doctors[selectedIndex]?.name}</TagLabel>
+            <TagCloseButton onClick={resetDoctor} />
+          </Tag>
+        </HStack>
+      )}
     </Flex>
   );
 };
