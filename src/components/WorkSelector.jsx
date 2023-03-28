@@ -61,7 +61,7 @@ const WorkSelector = ({
     <Flex
       borderWidth={1}
       borderRadius={15}
-      padding={5}
+      padding={2}
       direction="column"
       gap={3}
       width={width || "20vw"}
