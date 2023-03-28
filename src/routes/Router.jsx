@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
 import {
-  Doctor,
   AddDoctor,
   GenerateBill,
   Print,
@@ -9,6 +8,7 @@ import {
   Bill,
   Jobs,
   AddJob,
+  Doctors,
 } from "../pages";
 
 export default function Router() {
@@ -16,7 +16,7 @@ export default function Router() {
     <Routes>
       <Route path="/" Component={Jobs} />
       <Route path="/addJob" Component={AddJob} />
-      <Route path="/doctor" Component={Doctor} />
+      <Route path="/doctors" Component={Doctors} />
       <Route path="/addDoctor" Component={AddDoctor} />
       <Route path="/addDoctor/:id" Component={AddDoctor} />
       <Route path="/generateBill/:doctorId" Component={GenerateBill} />

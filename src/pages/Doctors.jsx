@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DoctorsList from "../components/DoctorsList";
 import { loadDoctorsHelper } from "../reduxStore/doctor/doctorActions";
 
-const Doctor = () => {
+const Doctors = () => {
   const { doctors, total } = useSelector((store) => store.doctor);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -71,4 +71,4 @@ const Doctor = () => {
   );
 };
 
-export default Doctor;
+export default Doctors;
