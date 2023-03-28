@@ -86,3 +86,30 @@ export const deleteDoctorHelper = (id, name, toast) => {
     }
   };
 };
+
+export const updateDoctorHelper = (doctor, toast, navigate) => {
+  return async (dispatch, getState) => {
+    try {
+      await axios.patch(`${BASE_URL}/doctor/${doctor._id}`, doctor);
+      toast({
+        title: "Success",
+        description: `Doctor ${doctor.name} was updated`,
+        position: "top",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate("/doctors");
+    } catch (error) {
+      console.error(error.message);
+      toast({
+        title: "Something went wrong",
+        description: error.message,
+        position: "top",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+};
