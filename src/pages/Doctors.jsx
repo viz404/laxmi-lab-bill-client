@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DoctorsList from "../components/DoctorsList";
@@ -51,7 +51,12 @@ const Doctors = () => {
       >
         <DoctorsList doctors={doctors} />
       </Box>
-      <Flex justifyContent="space-between" width="70vw" margin="2rem auto">
+      <Flex
+        justifyContent="space-between"
+        width="70vw"
+        margin="2rem auto"
+        alignItems="center"
+      >
         <Button
           colorScheme="blue"
           isDisabled={page == 1}
@@ -59,9 +64,12 @@ const Doctors = () => {
         >
           Prev
         </Button>
+        <Text>
+          Page: {page} of {Math.ceil(Number(total) / 10)}
+        </Text>
         <Button
           colorScheme="blue"
-          isDisabled={total - 10 * page < 0}
+          isDisabled={Math.ceil(Number(total) / 10)}
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next
