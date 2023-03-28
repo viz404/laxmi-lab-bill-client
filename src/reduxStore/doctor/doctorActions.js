@@ -45,7 +45,7 @@ export const addDoctorHelper = (doctor, toast, navigate) => {
         duration: 5000,
         isClosable: true,
       });
-      navigate("/");
+      navigate("/doctors");
     } catch (error) {
       console.error(error.message);
       toast({
