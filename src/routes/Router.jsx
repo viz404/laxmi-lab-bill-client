@@ -9,6 +9,7 @@ import {
   Jobs,
   AddJob,
   Doctors,
+  EditJob,
 } from "../pages";
 
 export default function Router() {
@@ -16,6 +17,7 @@ export default function Router() {
     <Routes>
       <Route path="/" Component={Jobs} />
       <Route path="/addJob" Component={AddJob} />
+      <Route path="/editJob/:jobId" Component={EditJob} />
       <Route path="/doctors" Component={Doctors} />
       <Route path="/addDoctor" Component={AddDoctor} />
       <Route path="/addDoctor/:id" Component={AddDoctor} />
