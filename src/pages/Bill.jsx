@@ -47,16 +47,6 @@ const Bill = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </Box>
-      <Flex justifyContent="space-between" width="80vw" margin="1rem auto">
-        <Flex alignItems="center" gap={3}>
-          <Text>From:</Text>
-          <Input type="date" />
-        </Flex>
-        <Flex alignItems="center" gap={3}>
-          <Text>Till:</Text>
-          <Input type="date" />
-        </Flex>
-      </Flex>
       <Box
         margin="2rem 8rem"
         maxHeight="70vh"
@@ -121,9 +111,12 @@ const Bill = () => {
         >
           Prev
         </Button>
+        <Text>
+          List: {page} of {Math.ceil(Number(total) / 30)}
+        </Text>
         <Button
           colorScheme="blue"
-          isDisabled={total - 10 * page < 0}
+          isDisabled={Math.ceil(Number(total) / 30)}
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next
