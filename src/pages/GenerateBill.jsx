@@ -26,25 +26,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import fetchDoctorById from "../apiHelpers/fetchDoctorById";
-import AddJob from "../components/AddJob";
+import fetchJobsNoLimit from "../apiHelpers/fetchJobsNoLimit";
+import fetchJobByNumber from "../apiHelpers/fetchJobByNumber";
 import { addBillHelper } from "../reduxStore/bill/billActions";
+import trimDate from "../calculationHelpers/trimDate";
+import filterJobs from "../helperFunctions/filterJobs";
 
 const GenerateBill = () => {
   const [doctor, setDoctor] = useState({});
   const [jobs, setJobs] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState();
-  const [date, setDate] = useState({});
+  const [fromDate, setFromDate] = useState("");
+  const [tillDate, setTillDate] = useState("");
+  const [newJobNumber, setNewJobNumber] = useState("");
 
   const { doctorId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isOpenDelete,
-    onOpen: onOpenDelete,
-    onClose: onCloseDelete,
-  } = useDisclosure();
 
   useEffect(() => {
     fetchDoctorById(doctorId)
@@ -64,22 +65,31 @@ const GenerateBill = () => {
       });
   }, []);
 
-  const addJob = (newJob) => {
-    setJobs([...jobs, newJob]);
+  const generateBill = async () => {
+    try {
+      let { data } = await fetchJobsNoLimit({
+        doctor_id: doctorId,
+        from_date: fromDate,
+        till_date: tillDate,
+      });
+
+      let filteredJobs = filterJobs(data.response);
+      setJobs([...filteredJobs]);
+    } catch (error) {}
   };
 
   const handlePrint = () => {
     let missing = [];
 
     if (jobs.length == 0) {
-      missing.push("Jobs");
+      missing.push("No Jobs");
     }
 
-    if (!date.fromDate) {
+    if (fromDate == "") {
       missing.push("From Date");
     }
 
-    if (!date.tillDate) {
+    if (tillDate == "") {
       missing.push("Till Date");
     }
 
@@ -94,7 +104,7 @@ const GenerateBill = () => {
       });
     } else {
       let currDate = new Date();
-      currDate = currDate.toISOString().split("T").shift();
+      currDate = currDate.toISOString();
 
       const totalAmount = jobs.reduce((prev, curr) => prev + curr.price, 0);
 
@@ -103,8 +113,8 @@ const GenerateBill = () => {
         doctorName: doctor.name,
         doctorAddress: doctor.address,
         createdAt: currDate,
-        fromDate: date.fromDate,
-        tillDate: date.tillDate,
+        fromDate,
+        tillDate,
         totalAmount,
         jobs,
       };
@@ -113,58 +123,119 @@ const GenerateBill = () => {
     }
   };
 
-  const deleteJob = () => {
-    let filtered = jobs.filter((_, i) => i != selectedIndex);
-    setJobs([...filtered]);
-    onCloseDelete();
+  const removeJob = () => {
+    const removed = jobs.splice(selectedIndex, 1);
+    setJobs([...jobs]);
+    toast({
+      title: "Removed",
+      description: `Successfully removed job number ${removed[0].jobNumber}`,
+      position: "top",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    onClose();
+  };
+
+  const addNewJob = async () => {
+    try {
+      let { data } = await fetchJobByNumber(newJobNumber);
+      if (data.response) {
+        setJobs([...jobs, ...data.response]);
+      } else {
+        toast({
+          title: "Not found",
+          description: "No jobs found matching the given number",
+          position: "top",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast({
+        title: "Something went wrong",
+        description: error.message,
+        position: "top",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setNewJobNumber("");
+    }
   };
 
   return (
     <Box padding={3}>
-      <Flex alignItems="center" gap={7}>
-        <Button colorScheme="blue" onClick={onOpen}>
-          ADD
-        </Button>
-        <Button colorScheme="yellow" onClick={handlePrint}>
-          Print
-        </Button>
-        <Flex alignItems="center" gap={3}>
-          <Text>
-            <nobr>From Date:</nobr>
-          </Text>
+      <Flex alignItems="center" justifyContent="space-between">
+        <Flex direction="column" gap={3}>
+          <Button
+            colorScheme="yellow"
+            onClick={handlePrint}
+            isDisabled={jobs.length == 0}
+          >
+            Print
+          </Button>
+          <Button
+            colorScheme="blue"
+            onClick={generateBill}
+            isDisabled={fromDate == "" || tillDate == ""}
+          >
+            Generate
+          </Button>
+        </Flex>
+        <Flex direction="column" gap={3}>
+          <Flex alignItems="center" gap={3}>
+            <Text>
+              <nobr>From Date:</nobr>
+            </Text>
+            <Input
+              type="date"
+              value={fromDate}
+              onChange={(e) => {
+                setFromDate(e.target.value);
+              }}
+            />
+          </Flex>
+          <Flex alignItems="center" gap={3}>
+            <Text>
+              <nobr>Till Date:</nobr>
+            </Text>
+            <Input
+              type="date"
+              value={tillDate}
+              onChange={(e) => {
+                setTillDate(e.target.value);
+              }}
+            />
+          </Flex>
+        </Flex>
+        <Flex direction="column" gap={3}>
+          <Heading as="h4" size="md">
+            Doctor: {doctor.name}
+          </Heading>
+          <Heading as="h4" size="md">
+            Total Amount: ₹{jobs.reduce((prev, curr) => prev + curr.price, 0)}
+          </Heading>
+        </Flex>
+        <Flex gap={2} width="fit-content">
+          <Button
+            width="100%"
+            colorScheme="green"
+            isDisabled={newJobNumber == ""}
+            onClick={addNewJob}
+          >
+            Add by JobNumber
+          </Button>
           <Input
-            type="date"
-            onChange={(e) => {
-              date.fromDate = e.target.value;
-              setDate({ ...date });
-            }}
+            placeholder="Enter Job number"
+            value={newJobNumber}
+            onChange={(e) => setNewJobNumber(e.target.value)}
           />
         </Flex>
-        <Flex alignItems="center" gap={3}>
-          <Text>
-            <nobr>Till Date:</nobr>
-          </Text>
-          <Input
-            type="date"
-            onChange={(e) => {
-              date.tillDate = e.target.value;
-              setDate({ ...date });
-            }}
-          />
-        </Flex>
-        <Heading as="h4" size="md">
-          Doctor: {doctor.name}
-        </Heading>
-        <Heading as="h4" size="md">
-          Total Amount: ₹{jobs.reduce((prev, curr) => prev + curr.price, 0)}
-        </Heading>
       </Flex>
-      <AddJob
-        isOpen={isOpen}
-        onClose={onClose}
-        addJob={addJob}
-        doctor={doctor}
-      />
       <Table marginTop={5} borderWidth={1}>
         <Thead position="sticky" top={0} bg="white">
           <Tr>
@@ -206,11 +277,11 @@ const GenerateBill = () => {
               key={index}
               onClick={() => {
                 setSelectedIndex(index);
-                onOpenDelete();
+                onOpen();
               }}
             >
-              <Td borderRightWidth={1}>{el.date}</Td>
-              <Td borderRightWidth={1}>{el.jobNo}</Td>
+              <Td borderRightWidth={1}>{trimDate(el.date)}</Td>
+              <Td borderRightWidth={1}>{el.jobNumber}</Td>
               <Td borderRightWidth={1}>{el.patientName}</Td>
               <Td borderRightWidth={1}>
                 {el.works.map((e) => e.title).join(", ")}
@@ -269,24 +340,35 @@ const GenerateBill = () => {
           ))}
         </Tbody>
       </Table>
-      <Modal isOpen={isOpenDelete} onClose={onCloseDelete}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        motionPreset="slideInBottom"
+      >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Proceed to delete</ModalHeader>
+          <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text> Are you sure you want to delete ?</Text>
-            <Text>Patient name: {jobs[selectedIndex]?.patientName}</Text>
-            <Text>Job No: {jobs[selectedIndex]?.jobNo}</Text>
+            <Table>
+              <Tbody>
+                <Tr>
+                  <Th>Job Number</Th>
+                  <Td>{jobs[selectedIndex]?.jobNumber}</Td>
+                </Tr>
+                <Tr>
+                  <Th>Patient Name</Th>
+                  <Td>{jobs[selectedIndex]?.patientName}</Td>
+                </Tr>
+              </Tbody>
+            </Table>
           </ModalBody>
-
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={deleteJob}>
-              Delete
+            <Button colorScheme="red" mr={3} onClick={removeJob}>
+              Remove from bill
             </Button>
-            <Button colorScheme="yellow" onClick={onCloseDelete}>
-              Cancel
-            </Button>
+            <Button onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
