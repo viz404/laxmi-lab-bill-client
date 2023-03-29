@@ -17,7 +17,7 @@ const Doctors = () => {
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      dispatch(loadDoctorsHelper(toast, page, search));
+      dispatch(loadDoctorsHelper(toast, page, search, 20));
     }, 500);
   }, [search, page]);
 
@@ -65,11 +65,11 @@ const Doctors = () => {
           Prev
         </Button>
         <Text>
-          Page: {page} of {Math.ceil(Number(total) / 10)}
+          List: {page} of {Math.ceil(Number(total) / 20)}
         </Text>
         <Button
           colorScheme="blue"
-          isDisabled={Math.ceil(Number(total) / 10)}
+          isDisabled={Math.ceil(Number(total) / 20)}
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next
