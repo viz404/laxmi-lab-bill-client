@@ -140,35 +140,35 @@ const Print = () => {
           </Flex>
         </Flex>
         <Box>
-          <Table marginTop={5} borderWidth={1}>
+          <Table marginTop={5} borderWidth={1} borderColor="grey">
             <Thead>
               <Tr>
-                <Th borderRightWidth={1}>
+                <Th borderRightWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs">
                     Date
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1}>
+                <Th borderRightWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs">
                     Job No
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1}>
+                <Th borderRightWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs">
                     Patient Name
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1}>
+                <Th borderRightWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs">
                     Type of work
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1}>
+                <Th borderRightWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs">
                     Description
                   </Heading>
                 </Th>
-                <Th>
+                <Th borderColor="grey">
                   <Heading as="h6" size="xs">
                     Amount
                   </Heading>
@@ -178,21 +178,21 @@ const Print = () => {
             <Tbody>
               {bill?.jobs?.map((el, index) => (
                 <Tr key={index}>
-                  <Td borderRightWidth={1}>
+                  <Td borderRightWidth={1} borderColor="grey">
                     <Text fontSize="sm">{trimDate(el.date)}</Text>
                   </Td>
-                  <Td borderRightWidth={1}>
-                    <Text fontSize="sm">{el.jobNo}</Text>
+                  <Td borderRightWidth={1} borderColor="grey">
+                    <Text fontSize="sm">{el.jobNumber}</Text>
                   </Td>
-                  <Td borderRightWidth={1}>
+                  <Td borderRightWidth={1} borderColor="grey">
                     <Text fontSize="sm">{el.patientName}</Text>
                   </Td>
-                  <Td borderRightWidth={1}>
+                  <Td borderRightWidth={1} borderColor="grey">
                     <Text fontSize="sm">
                       {el.works.map((e) => e.title).join(", ")}
                     </Text>
                   </Td>
-                  <Td borderRightWidth={1}>
+                  <Td borderRightWidth={1} borderColor="grey">
                     <Flex direction="column" gap={3}>
                       {el.works.map((ele) => (
                         <Flex justifyContent="space-between" key={ele.title}>
@@ -241,7 +241,7 @@ const Print = () => {
                       ))}
                     </Flex>
                   </Td>
-                  <Td>
+                  <Td borderColor="grey">
                     <Text fontSize="sm">₹ {el.price}</Text>
                   </Td>
                 </Tr>
