@@ -12,6 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Table,
+  TableContainer,
   Tbody,
   Td,
   Text,
@@ -248,7 +249,7 @@ const Jobs = () => {
               Prev
             </Button>
             <Text>
-              Page: {page} of {Math.ceil(Number(total) / 20)}
+              List: {page} of {Math.ceil(Number(total) / 20)}
             </Text>
             <Button
               colorScheme="blue"
@@ -271,22 +272,46 @@ const Jobs = () => {
           <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Table>
-              <Tbody>
-                <Tr>
-                  <Th>Job Number</Th>
-                  <Td>{jobs[selectedIndex]?.jobNumber}</Td>
-                </Tr>
-                <Tr>
-                  <Th>Patient Name</Th>
-                  <Td>{jobs[selectedIndex]?.patientName}</Td>
-                </Tr>
-                <Tr>
-                  <Th>Doctor Name</Th>
-                  <Td>{jobs[selectedIndex]?.doctorName}</Td>
-                </Tr>
-              </Tbody>
-            </Table>
+            <Box borderWidth={1} borderRadius={10} overflow="hidden">
+              <Table variant="striped" colorScheme="whatsapp">
+                <Tbody>
+                  <Tr>
+                    <Th>
+                      <Text fontSize="sm">Job Number</Text>
+                    </Th>
+                    <Td>{jobs[selectedIndex]?.jobNumber}</Td>
+                  </Tr>
+                  <Tr>
+                    <Th>
+                      <Text fontSize="sm">Patient Name</Text>
+                    </Th>
+                    <Td>{jobs[selectedIndex]?.patientName}</Td>
+                  </Tr>
+                  <Tr>
+                    <Th>
+                      <Text fontSize="sm">Doctor Name</Text>
+                    </Th>
+                    <Td>{jobs[selectedIndex]?.doctorName}</Td>
+                  </Tr>
+                  {jobs[selectedIndex]?.shade && (
+                    <Tr>
+                      <Th>
+                        <Text fontSize="sm">Shade</Text>
+                      </Th>
+                      <Td>{jobs[selectedIndex]?.shade}</Td>
+                    </Tr>
+                  )}
+                  {jobs[selectedIndex]?.notes && (
+                    <Tr>
+                      <Th>
+                        <Text fontSize="sm">Notes</Text>
+                      </Th>
+                      <Td>{jobs[selectedIndex]?.notes}</Td>
+                    </Tr>
+                  )}
+                </Tbody>
+              </Table>
+            </Box>
           </ModalBody>
           <ModalFooter>
             <Button
