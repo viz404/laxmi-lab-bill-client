@@ -283,6 +283,49 @@ const Print = () => {
               </Tr>
             </Tbody>
           </Table>
+          <Box width="fit-content" marginTop={7}>
+            <Table variant="unstyled">
+              <Tbody>
+                <Tr>
+                  <Td paddingX={0} paddingY={1}>
+                    Lab's Bank Details
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    Bank Name:
+                  </Td>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    <Text fontWeight="bold">Union Bank</Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    A/c No:
+                  </Td>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    <Text fontWeight="bold">560371000694883</Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    Branch & IFSC Code:
+                  </Td>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    <Text fontWeight="bold">Karvenagar & UBIN0905038</Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    Google/Phone Pay:
+                  </Td>
+                  <Td paddingX={0} paddingY={1} paddingRight={2}>
+                    <Text fontWeight="bold">976326993</Text>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </Box>
         </Box>
         <Flex justifyContent="space-between" marginTop={5}>
           <Flex
