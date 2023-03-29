@@ -13,7 +13,7 @@ export const loadBillHelper = (toast, page, search) => {
   return async (dispatch, getState) => {
     try {
       const { data, headers } = await axios.get(
-        `${BASE_URL}/bill?_limit=10&_page=${page || "1"}&doctor_name=${
+        `${BASE_URL}/bill?_limit=30&_page=${page || "1"}&doctor_name=${
           search || ""
         }`
       );
