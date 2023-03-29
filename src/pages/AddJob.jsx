@@ -27,6 +27,8 @@ const AddJob = () => {
   const [date, setDate] = useState("");
   const [jobNumber, setJobNumber] = useState("");
   const [patientName, setPatientName] = useState("");
+  const [shade, setShade] = useState("");
+  const [notes, setNotes] = useState("");
   const [price, setPrice] = useState("");
   const [works, setWorks] = useState([]);
   const [doctor, setDoctor] = useState({});
@@ -114,6 +116,14 @@ const AddJob = () => {
         price: calculatePriceV2(works),
       };
 
+      if (shade != "") {
+        jobObj.shade = shade;
+      }
+
+      if (notes != "") {
+        jobObj.notes = notes;
+      }
+
       dispatch(addJobHandler(jobObj, toast, navigate));
     } catch (error) {
       toast({
@@ -187,6 +197,32 @@ const AddJob = () => {
                       placeholder="Enter patient name"
                       value={patientName}
                       onChange={(e) => setPatientName(e.target.value)}
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>
+                    <Text fontSize="md">Shade</Text>
+                  </Th>
+                  <Td>
+                    <Input
+                      name="shade"
+                      placeholder="Enter shade"
+                      value={shade}
+                      onChange={(e) => setShade(e.target.value)}
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>
+                    <Text fontSize="md">Notes</Text>
+                  </Th>
+                  <Td>
+                    <Input
+                      name="notes"
+                      placeholder="Add notes"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
                     />
                   </Td>
                 </Tr>
