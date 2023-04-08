@@ -1,6 +1,4 @@
 import {
-  Box,
-  Checkbox,
   Flex,
   HStack,
   Input,
