@@ -254,86 +254,88 @@ const Print = () => {
                   </Td>
                 </Tr>
               ))}
+              <Tr>
+                <Td
+                  borderWidth={1}
+                  borderRightWidth={0}
+                  borderColor="blackAlpha.500"
+                >
+                  Total
+                </Td>
+                <Td
+                  colSpan={5}
+                  borderBottomWidth={1}
+                  borderColor="blackAlpha.500"
+                  textAlign="right"
+                  fontWeight="bold"
+                >
+                  ₹ {bill.totalAmount}
+                </Td>
+              </Tr>
+              <Tr>
+                <Td
+                  colSpan={2}
+                  borderWidth={1}
+                  borderRightWidth={0}
+                  borderColor="blackAlpha.500"
+                >
+                  Total in Words
+                </Td>
+                <Td
+                  colSpan={4}
+                  borderBottomWidth={1}
+                  borderColor="blackAlpha.500"
+                  textAlign="right"
+                  fontWeight="bold"
+                >
+                  {numberToWord(bill.totalAmount) + " Only"}
+                </Td>
+              </Tr>
             </Tbody>
           </Table>
         </Box>
-        <Box marginTop={5}>
-          <Table width="fit-content">
+        <Box width="fit-content" marginTop={7}>
+          <Table variant="unstyled">
             <Tbody>
               <Tr>
-                <Th padding={0} borderRightWidth={1} borderWidth={0}>
-                  <Heading as="h6" size="xs">
-                    Total
-                  </Heading>
-                </Th>
-                <Td borderWidth={0} padding={0} paddingLeft={3}>
-                  <Text fontSize="sm" fontWeight="bold">
-                    ₹ {bill.totalAmount}
-                  </Text>
+                <Td paddingX={0} paddingY={1}>
+                  Lab's Bank Details
                 </Td>
               </Tr>
               <Tr>
-                <Th
-                  padding={0}
-                  borderRightWidth={1}
-                  borderWidth={0}
-                  paddingTop={3}
-                >
-                  <Heading as="h6" size="xs">
-                    Total{"(in words)"}
-                  </Heading>
-                </Th>
-                <Td borderWidth={0} padding={0} paddingLeft={3} paddingTop={3}>
-                  <Text fontSize="sm" fontWeight="bold">
-                    {numberToWord(bill.totalAmount)}
-                  </Text>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  Bank Name:
+                </Td>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  <Text fontWeight="bold">Union Bank</Text>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  A/c No:
+                </Td>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  <Text fontWeight="bold">560371000694883</Text>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  Branch & IFSC Code:
+                </Td>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  <Text fontWeight="bold">Karvenagar & UBIN0905038</Text>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  Google/Phone Pay:
+                </Td>
+                <Td paddingX={0} paddingY={1} paddingRight={2}>
+                  <Text fontWeight="bold">976326993</Text>
                 </Td>
               </Tr>
             </Tbody>
           </Table>
-          <Box width="fit-content" marginTop={7}>
-            <Table variant="unstyled">
-              <Tbody>
-                <Tr>
-                  <Td paddingX={0} paddingY={1}>
-                    Lab's Bank Details
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    Bank Name:
-                  </Td>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    <Text fontWeight="bold">Union Bank</Text>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    A/c No:
-                  </Td>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    <Text fontWeight="bold">560371000694883</Text>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    Branch & IFSC Code:
-                  </Td>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    <Text fontWeight="bold">Karvenagar & UBIN0905038</Text>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    Google/Phone Pay:
-                  </Td>
-                  <Td paddingX={0} paddingY={1} paddingRight={2}>
-                    <Text fontWeight="bold">976326993</Text>
-                  </Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </Box>
         </Box>
         <Flex justifyContent="space-between" marginTop={5}>
           <Flex
