@@ -137,12 +137,12 @@ const Jobs = () => {
                   </Th>
                   <Th borderRightWidth={1} borderColor="grey">
                     <Heading as="h5" size="sm">
-                      Patient Name
+                      Doctor Name
                     </Heading>
                   </Th>
                   <Th borderRightWidth={1} borderColor="grey">
                     <Heading as="h5" size="sm">
-                      Doctor Name
+                      Patient Name
                     </Heading>
                   </Th>
                   <Th borderRightWidth={1} borderColor="grey">
@@ -173,10 +173,10 @@ const Jobs = () => {
                       {el.jobNumber}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
-                      {el.patientName}
+                      {el.doctorName}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
-                      {el.doctorName}
+                      {el.patientName}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
                       {el.works.map((e) => e.title).join(", ")}
