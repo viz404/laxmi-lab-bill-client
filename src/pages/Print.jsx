@@ -206,7 +206,9 @@ const Print = () => {
                                   borderColor="blackAlpha.500"
                                   paddingRight={1}
                                 >
-                                  <Text fontSize="sm"> {ele.topLeft}</Text>
+                                  <Text fontSize="sm">
+                                    {ele.topLeft?.replaceAll(",", " ")}
+                                  </Text>
                                 </Td>
                                 <Td
                                   padding={0}
@@ -214,7 +216,9 @@ const Print = () => {
                                   borderColor="blackAlpha.500"
                                   paddingLeft={1}
                                 >
-                                  <Text fontSize="sm"> {ele.topRight}</Text>
+                                  <Text fontSize="sm">
+                                    {ele.topRight?.replaceAll(",", " ")}
+                                  </Text>
                                 </Td>
                               </Tr>
                               <Tr>
@@ -225,14 +229,18 @@ const Print = () => {
                                   borderBottomWidth={0}
                                   paddingRight={1}
                                 >
-                                  <Text fontSize="sm">{ele.bottomLeft}</Text>
+                                  <Text fontSize="sm">
+                                    {ele.bottomLeft?.replaceAll(",", " ")}
+                                  </Text>
                                 </Td>
                                 <Td
                                   padding={0}
                                   borderBottomWidth={0}
                                   paddingLeft={1}
                                 >
-                                  <Text fontSize="sm">{ele.bottomRight}</Text>
+                                  <Text fontSize="sm">
+                                    {ele.bottomRight?.replaceAll(",", " ")}
+                                  </Text>
                                 </Td>
                               </Tr>
                             </Tbody>
