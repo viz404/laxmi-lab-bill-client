@@ -27,7 +27,7 @@ const DoctorSelectorRadio = ({ selectDoctor }) => {
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      dispatch(loadDoctorsHelper(toast, 1, search, 20));
+      dispatch(loadDoctorsHelper(toast, 1, search, 10));
     }, 500);
   }, [search]);
 
