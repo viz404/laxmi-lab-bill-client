@@ -1,35 +1,29 @@
-const calculatePrice = (selectedWorks, typeOfWorks) => {
-  const priceMap = new Map();
-  let total = 0;
-
-  for (let work of typeOfWorks) {
-    priceMap.set(work.title, Number(work.price));
-  }
+const calculatePrice = (selectedWorks) => {
+  let price = 0;
 
   for (let work of selectedWorks) {
-    let currTotal = 0;
+    let currPrice = 0;
 
     if (work.topLeft && work.topLeft != "") {
-      currTotal += work.topLeft.split(",").length * priceMap.get(work.title);
+      currPrice += work.topLeft.split(",").length * work.singlePrice;
     }
 
     if (work.topRight && work.topRight != "") {
-      currTotal += work.topRight.split(",").length * priceMap.get(work.title);
+      currPrice += work.topRight.split(",").length * work.singlePrice;
     }
 
     if (work.bottomLeft && work.bottomLeft != "") {
-      currTotal += work.bottomLeft.split(",").length * priceMap.get(work.title);
+      currPrice += work.bottomLeft.split(",").length * work.singlePrice;
     }
 
     if (work.bottomRight && work.bottomRight != "") {
-      currTotal +=
-        work.bottomRight.split(",").length * priceMap.get(work.title);
+      currPrice += work.bottomRight.split(",").length * work.singlePrice;
     }
 
-    total += currTotal;
+    price += currPrice;
   }
 
-  return total;
+  return price;
 };
 
 export default calculatePrice;
