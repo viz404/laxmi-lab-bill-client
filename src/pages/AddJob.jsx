@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import JobWorkSelector from "../components/JobWorkSelector";
-import { addJobHandler } from "../reduxStore/jobs/jobActions";
+import { addJobHandler, updateJobHandler } from "../reduxStore/jobs/jobActions";
 
 import DummyAvatar from "../components/DummyAvatar";
 import calculatePrice from "../calculationHelpers/calculatePrice";
@@ -40,14 +40,24 @@ const AddJob = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (doctorId) {
+    if (jobId) {
+      fetchJobById(jobId).then(({ data: { response } }) => {
+        delete response.createdAt;
+        delete response.updatedAt;
+        delete response.doctor;
+        delete response.price;
+
+        setWorks([...response.works]);
+
+        response.date = response?.date.split("T").shift();
+        delete response.works;
+
+        setJob({ ...response, date: response?.date.split("T").shift() });
+      });
       fetchDoctorById(doctorId).then(({ data: { response } }) => {
         setDoctor({ ...response });
       });
-    } else if (jobId) {
-      fetchJobById(jobId).then(({ data: { response } }) => {
-        console.log(response);
-      });
+    } else if (doctorId) {
       fetchDoctorById(doctorId).then(({ data: { response } }) => {
         setDoctor({ ...response });
       });
@@ -67,7 +77,7 @@ const AddJob = () => {
         },
       ]);
     } else {
-      let filtered = works.filter((e) => e._id != element._id);
+      let filtered = works.filter((e) => e.title != element.title);
       setWorks([...filtered]);
     }
   };
@@ -99,7 +109,11 @@ const AddJob = () => {
         ...job,
       };
 
-      dispatch(addJobHandler(jobObj, toast, navigate));
+      if (jobId) {
+        dispatch(updateJobHandler(jobObj, toast, navigate));
+      } else {
+        dispatch(addJobHandler(jobObj, toast, navigate));
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -225,7 +239,7 @@ const AddJob = () => {
                     <JobWorkSelector
                       typeOfWorks={doctor?.typeOfWorks || []}
                       selectTypeOfWork={selectWork}
-                      selectedTypeOfWorks={works.filter((el) => el.title)}
+                      selectedTypeOfWorks={works.map((el) => el.title)}
                     />
                   </Td>
                   <Td verticalAlign="top">
