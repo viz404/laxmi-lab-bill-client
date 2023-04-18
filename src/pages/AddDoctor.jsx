@@ -139,7 +139,7 @@ const AddDoctor = () => {
   return (
     <Box paddingY={3} paddingX={10}>
       <Flex direction="column" alignItems="center" gap={10}>
-        <DummyAvatar />
+        <DummyAvatar rounded={true} />
         <form
           style={{ alignSelf: "flex-start", width: "100%" }}
           onSubmit={submitDoctor}
@@ -226,13 +226,13 @@ const AddDoctor = () => {
                   </Td>
                 </Tr>
                 <Tr>
-                  <Th>
+                  <Td verticalAlign="top">
                     <WorkSelector
                       selectedWorkTypes={doctor.typeOfWorks.map((e) => e.title)}
                       selectTypeOfWork={selectTypeOfWork}
                     />
-                  </Th>
-                  <Td>
+                  </Td>
+                  <Td verticalAlign="top">
                     <WorkPriceTable
                       typeOfWorks={doctor.typeOfWorks}
                       updateWorkPrice={updateWorkPrice}
