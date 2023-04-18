@@ -17,6 +17,15 @@ const workTypeReducer = (state = initialState, action) => {
         message: "",
       };
     }
+    case "WORKTYPE/DELETE": {
+      return {
+        types: state.types.filter((el) => el._id != action.payload),
+        isLoading: false,
+        isError: false,
+        showMessage: false,
+        message: "",
+      };
+    }
     case "WORKTYPE/LOAD": {
       return {
         types: [...action.payload],
