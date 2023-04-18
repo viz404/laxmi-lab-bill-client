@@ -242,7 +242,9 @@ const AddDoctor = () => {
                 <Tr>
                   <Td>
                     <Flex justifyContent="center">
-                      <Button>Cancel</Button>
+                      <Button onClick={() => navigate("/doctors")}>
+                        Cancel
+                      </Button>
                     </Flex>
                   </Td>
                   <Td>
