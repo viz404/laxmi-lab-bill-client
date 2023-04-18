@@ -16,6 +16,13 @@ const loadWorkTypes = (payload) => {
   };
 };
 
+const deleteWorkType = (payload) => {
+  return {
+    type: "WORKTYPE/DELETE",
+    payload,
+  };
+};
+
 export const loadWorkTypesHelper = (toast) => {
   return async (dispatch, getState) => {
     try {
@@ -42,7 +49,7 @@ export const addWorkTypeHelper = (title, toast) => {
         title,
       });
 
-      dispatch(addWorkType({ title, id: data.response._id }));
+      dispatch(addWorkType({ title, _id: data.response._id }));
     } catch (error) {
       console.error(error.message);
       toast({
@@ -61,7 +68,8 @@ export const deleteWorkTypeHelper = (id, toast) => {
   return async (dispatch, getState) => {
     try {
       await axios.delete(`${BASE_URL}/work/${id}`);
-      dispatch(loadWorkTypesHelper(toast));
+      // dispatch(loadWorkTypesHelper(toast));
+      dispatch(deleteWorkType(id));
     } catch (error) {
       console.error(error.message);
       toast({
