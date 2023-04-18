@@ -71,6 +71,39 @@ export const addJobHandler = (job, toast, navigate) => {
   };
 };
 
+export const updateJobHandler = (job, toast, navigate) => {
+  return async (dispatch, getState) => {
+    try {
+      for (let work of job.works) {
+        if (work._id) {
+          delete work._id;
+        }
+      }
+
+      await axios.patch(`${BASE_URL}/job/${job._id}`, job);
+      toast({
+        title: "Success",
+        description: "Job updated successfully",
+        position: "top",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+      toast({
+        title: "Something went wrong",
+        description: error.message,
+        position: "top",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+};
+
 export const deleteJobHelper = ({ id, number, toast }) => {
   return async (dispatch, getState) => {
     try {
