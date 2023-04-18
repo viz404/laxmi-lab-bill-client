@@ -43,10 +43,12 @@ const WorkSelector = ({
   const dispatch = useDispatch();
   const toast = useToast();
 
-  const addNewWorkType = (event) => {
-    event.preventDefault();
-
+  const addNewWorkType = () => {
     const title = addWorkType.toUpperCase();
+
+    if (title == "") {
+      return;
+    }
     dispatch(addWorkTypeHelper(title, toast));
     setAddWorkType("");
     onToggle();
@@ -54,6 +56,23 @@ const WorkSelector = ({
 
   const deleteWorkType = (id) => {
     dispatch(deleteWorkTypeHelper(id, toast));
+  };
+
+  const handleKeyDown = (event) => {
+    const { key } = event;
+
+    if (key == "Enter") {
+      event.preventDefault();
+      addNewWorkType();
+    }
+  };
+
+  const handleOnChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setAddWorkType(value);
   };
 
   return (
@@ -108,22 +127,20 @@ const WorkSelector = ({
         Add New
       </Button>
       <Collapse in={isOpen} animateOpacity>
-        <form onSubmit={addNewWorkType}>
-          <Flex gap={2}>
-            <Input
-              placeholder="Enter new work"
-              value={addWorkType}
-              onChange={(e) => {
-                setAddWorkType(e.target.value);
-              }}
-            />
-            <IconButton
-              type="submit"
-              aria-label="add new work"
-              icon={<AddIcon />}
-            />
-          </Flex>
-        </form>
+        <Flex gap={2}>
+          <Input
+            placeholder="Enter new work"
+            value={addWorkType}
+            onChange={handleOnChange}
+            onKeyDown={handleKeyDown}
+            onSubmit={addNewWorkType}
+          />
+          <IconButton
+            aria-label="add new work"
+            icon={<AddIcon />}
+            onClick={addNewWorkType}
+          />
+        </Flex>
       </Collapse>
     </Flex>
   );
