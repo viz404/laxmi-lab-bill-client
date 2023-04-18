@@ -173,7 +173,7 @@ const Jobs = () => {
                       {el.jobNumber}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
-                      {el.doctorName}
+                      {el.doctor?.name}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
                       {el.patientName}
@@ -299,7 +299,7 @@ const Jobs = () => {
                     <Th>
                       <Text fontSize="sm">Doctor Name</Text>
                     </Th>
-                    <Td>{jobs[selectedIndex]?.doctorName}</Td>
+                    <Td>{jobs[selectedIndex]?.doctor.name}</Td>
                   </Tr>
                   {jobs[selectedIndex]?.shade && (
                     <Tr>
@@ -342,7 +342,9 @@ const Jobs = () => {
               colorScheme="yellow"
               mr={3}
               onClick={() => {
-                navigate(`/editJob/${jobs[selectedIndex]?._id}`);
+                navigate(
+                  `/addJob/${jobs[selectedIndex]?.doctor._id}/${jobs[selectedIndex]?._id}`
+                );
               }}
             >
               Edit
