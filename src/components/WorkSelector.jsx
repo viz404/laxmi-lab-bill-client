@@ -22,17 +22,15 @@ const WorkSelector = ({
   selectedWorkTypes,
   selectTypeOfWork,
 }) => {
-  const [searchWorkType, setSearchWorkType] = useState("");
   const [addWorkType, setAddWorkType] = useState("");
   const [workTypes, setWorkTypes] = useState([]);
   const { types } = useSelector((store) => store.work);
 
   useEffect(() => {
-    let loadWorkTypes = types.map((e) => {
+    let loadWorkTypes = types.map((el) => {
       return {
-        id: e._id,
-        title: e.title,
-        status: selectedWorkTypes.includes(e.title),
+        ...el,
+        status: selectedWorkTypes.includes(el.title),
       };
     });
 
@@ -51,6 +49,7 @@ const WorkSelector = ({
     const title = addWorkType.toUpperCase();
     dispatch(addWorkTypeHelper(title, toast));
     setAddWorkType("");
+    onToggle();
   };
 
   const deleteWorkType = (id) => {
@@ -92,7 +91,7 @@ const WorkSelector = ({
             <Checkbox
               isChecked={el.status}
               size="lg"
-              id={el.id}
+              id={el._id}
               name={el.title}
               onChange={selectTypeOfWork}
             >
@@ -100,7 +99,7 @@ const WorkSelector = ({
             </Checkbox>
             <IconButton
               icon={<DeleteIcon />}
-              onClick={() => deleteWorkType(el.id)}
+              onClick={() => deleteWorkType(el._id)}
             />
           </Flex>
         ))}
