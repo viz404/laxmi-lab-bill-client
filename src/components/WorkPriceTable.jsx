@@ -37,11 +37,13 @@ const WorkPriceTable = ({ typeOfWorks, updateWorkPrice }) => {
               <Td>
                 {updateWorkPrice ? (
                   <Input
+                    required={true}
                     borderColor="blackAlpha.500"
                     name={el.title}
                     type="number"
                     value={el.price || ""}
                     id={index}
+                    placeholder="₹ 000"
                     onChange={updateWorkPrice}
                   />
                 ) : (
