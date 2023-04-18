@@ -142,6 +142,11 @@ const DoctorsList = ({ doctors }) => {
                 Generate Bill
               </Button>
             </Link>
+            <Link to={`/addJob/${doctor._id}`}>
+              <Button colorScheme="blue" mr={3}>
+                Add Job
+              </Button>
+            </Link>
           </ModalFooter>
         </ModalContent>
       </Modal>
