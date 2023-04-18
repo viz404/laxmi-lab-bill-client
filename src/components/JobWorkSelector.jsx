@@ -31,7 +31,7 @@ const JobWorkSelector = ({
             size="lg"
             name={el.title}
             spacing="1rem"
-            checked={selectedTypeOfWorks.includes(el.title)}
+            isChecked={selectedTypeOfWorks.includes(el.title)}
             onChange={(event) => selectTypeOfWork(event, el)}
           >
             <Text fontSize="xl">{el.title}</Text>
