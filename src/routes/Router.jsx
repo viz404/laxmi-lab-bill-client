@@ -16,7 +16,7 @@ export default function Router() {
   return (
     <Routes>
       <Route path="/" Component={Jobs} />
-      <Route path="/addJob" Component={AddJob} />
+      <Route path="/addJob/:doctorId/:jobId?" Component={AddJob} />
       <Route path="/editJob/:jobId" Component={EditJob} />
       <Route path="/doctors" Component={Doctors} />
       <Route path="/addDoctor" Component={AddDoctor} />
