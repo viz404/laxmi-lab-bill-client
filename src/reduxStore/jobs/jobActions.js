@@ -25,10 +25,10 @@ export const loadJobsHelper = ({
       const total = headers.get("X-Total-Count");
       dispatch(loadJobs({ data: data.response, total }));
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
@@ -58,10 +58,10 @@ export const addJobHandler = (job, toast, navigate) => {
       });
       navigate("/");
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
@@ -91,10 +91,10 @@ export const updateJobHandler = (job, toast, navigate) => {
       });
       navigate("/");
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
@@ -118,10 +118,10 @@ export const deleteJobHelper = ({ id, number, toast }) => {
       });
       dispatch(loadJobsHelper({ toast }));
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,

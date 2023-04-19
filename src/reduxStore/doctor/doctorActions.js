@@ -20,10 +20,10 @@ export const loadDoctorsHelper = (toast, page, search, limit) => {
       const total = headers.get("X-Total-Count");
       dispatch(loadDoctors({ data: data.response, total }));
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
@@ -47,10 +47,10 @@ export const addDoctorHelper = (doctor, toast, navigate) => {
       });
       navigate("/doctors");
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
@@ -74,10 +74,10 @@ export const deleteDoctorHelper = (id, name, toast) => {
       });
       dispatch(loadDoctorsHelper(toast, 1));
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
@@ -101,10 +101,10 @@ export const updateDoctorHelper = (doctor, toast, navigate) => {
       });
       navigate("/doctors");
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
-        description: error.message,
+        description: error?.response?.data.error || error.message,
         position: "top",
         status: "error",
         duration: 5000,
