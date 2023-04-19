@@ -42,20 +42,27 @@ const AddJob = () => {
   useEffect(() => {
     if (jobId) {
       fetchJobById(jobId).then(({ data: { response } }) => {
-        delete response.createdAt;
-        delete response.updatedAt;
-        delete response.doctor;
-        delete response.price;
+        let { _id, date, doctor, jobNumber, patientName, shade, notes, works } =
+          response;
 
-        setWorks([...response.works]);
+        let jobObj = {
+          _id,
+          date: date.split("T").shift(),
+          jobNumber,
+          patientName,
+        };
 
-        response.date = response?.date.split("T").shift();
-        delete response.works;
+        if (shade) {
+          jobObj.shade = shade;
+        }
 
-        setJob({ ...response, date: response?.date.split("T").shift() });
-      });
-      fetchDoctorById(doctorId).then(({ data: { response } }) => {
-        setDoctor({ ...response });
+        if (notes) {
+          jobObj.notes = notes;
+        }
+
+        setJob(jobObj);
+        setWorks([...works]);
+        setDoctor(doctor);
       });
     } else if (doctorId) {
       fetchDoctorById(doctorId).then(({ data: { response } }) => {
