@@ -34,7 +34,7 @@ const WorkPriceTable = ({ typeOfWorks, updateWorkPrice }) => {
           {typeOfWorks.map((el, index) => (
             <Tr key={index}>
               <Td borderRightWidth={1}>{el.title}</Td>
-              <Td>
+              <Td isNumeric={updateWorkPrice ? false : true}>
                 {updateWorkPrice ? (
                   <Input
                     required={true}
