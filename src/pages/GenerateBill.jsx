@@ -300,7 +300,7 @@ const GenerateBill = () => {
                               borderColor="blackAlpha.500"
                               paddingRight={1}
                             >
-                              <Text> {ele.topLeft}</Text>
+                              <Text> {ele.topLeft?.replaceAll(",", " ")}</Text>
                             </Td>
                             <Td
                               padding={0}
@@ -308,7 +308,7 @@ const GenerateBill = () => {
                               borderColor="blackAlpha.500"
                               paddingLeft={1}
                             >
-                              <Text> {ele.topRight}</Text>
+                              <Text> {ele.topRight?.replaceAll(",", " ")}</Text>
                             </Td>
                           </Tr>
                           <Tr>
@@ -319,14 +319,18 @@ const GenerateBill = () => {
                               borderBottomWidth={0}
                               paddingRight={1}
                             >
-                              <Text>{ele.bottomLeft}</Text>
+                              <Text>
+                                {ele.bottomLeft?.replaceAll(",", " ")}
+                              </Text>
                             </Td>
                             <Td
                               padding={0}
                               borderBottomWidth={0}
                               paddingLeft={1}
                             >
-                              <Text>{ele.bottomRight}</Text>
+                              <Text>
+                                {ele.bottomRight?.replaceAll(",", " ")}
+                              </Text>
                             </Td>
                           </Tr>
                         </Tbody>
