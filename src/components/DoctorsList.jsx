@@ -4,7 +4,6 @@ import {
   Button,
   Flex,
   Heading,
-  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,7 +12,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Table,
-  TableContainer,
   Tbody,
   Td,
   Text,
@@ -24,28 +22,38 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+
 import { Link } from "react-router-dom";
 
-import DummyAvatar from "../components/DummyAvatar";
 import WorkPriceTable from "./WorkPriceTable";
 
-import fetchDoctorById from "../apiHelpers/fetchDoctorById";
 import { useDispatch } from "react-redux";
 import { deleteDoctorHelper } from "../reduxStore/doctor/doctorActions";
 
 const DoctorsList = ({ doctors }) => {
   const [doctor, setDoctor] = useState({});
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const dispatch = useDispatch();
 
-  const openDoctorModal = async (id) => {
+  const openDoctorModal = async (index) => {
     try {
-      const { data } = await fetchDoctorById(id);
-      setDoctor({ ...data.response });
+      setSelectedIndex(index);
       onOpen();
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Something went wrong",
+        description: error.message,
+        position: "top",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const deleteDoctor = async (id) => {
@@ -85,18 +93,24 @@ const DoctorsList = ({ doctors }) => {
                 Area
               </Heading>
             </Th>
+            <Th>
+              <Heading as="h5" size="sm">
+                Balance
+              </Heading>
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
-          {doctors.map((el) => (
+          {doctors.map((el, index) => (
             <Tr
               key={el._id}
               cursor="pointer"
-              onClick={() => openDoctorModal(el._id)}
+              onClick={() => openDoctorModal(index)}
             >
               <Td borderRightWidth={1}>{el.name}</Td>
               <Td borderRightWidth={1}>{el.phone}</Td>
-              <Td>{el.area}</Td>
+              <Td borderRightWidth={1}>{el.area}</Td>
+              <Td>₹ {el.balance}</Td>
             </Tr>
           ))}
         </Tbody>
@@ -106,6 +120,7 @@ const DoctorsList = ({ doctors }) => {
         onClose={onClose}
         isOpen={isOpen}
         motionPreset="slideInBottom"
+        size="2xl"
       >
         <ModalOverlay />
         <ModalContent>
@@ -113,36 +128,52 @@ const DoctorsList = ({ doctors }) => {
           <ModalCloseButton />
           <ModalBody>
             <Flex gap={10}>
-              <DummyAvatar boxSize="100px" />
-              <Flex direction="column" gap={3}>
-                <Text>{doctor.name}</Text>
-                <Text>{doctor.phone}</Text>
-                <Text>{doctor.area}</Text>
-              </Flex>
+              <Table variant="striped">
+                <Tbody>
+                  <Tr>
+                    <Th fontSize="md">Name</Th>
+                    <Td>{doctors[selectedIndex]?.name}</Td>
+                  </Tr>
+                  <Tr>
+                    <Th fontSize="md">Contact</Th>
+                    <Td>{doctors[selectedIndex]?.phone}</Td>
+                  </Tr>
+                  <Tr>
+                    <Th fontSize="md">Area</Th>
+                    <Td>{doctors[selectedIndex]?.area}</Td>
+                  </Tr>
+                  <Tr>
+                    <Th fontSize="md">Balance</Th>
+                    <Td>₹ {doctors[selectedIndex]?.balance}</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
             </Flex>
             <Box marginTop={5}>
-              <WorkPriceTable typeOfWorks={doctor.typeOfWorks} />
+              <WorkPriceTable
+                typeOfWorks={doctors[selectedIndex]?.typeOfWorks}
+              />
             </Box>
           </ModalBody>
           <ModalFooter>
-            <Link to={`/addDoctor/${doctor._id}`}>
+            <Link to={`/addDoctor/${doctors[selectedIndex]?._id}`}>
               <Button colorScheme="yellow" mr={3}>
-                Edit
+                <EditIcon />
               </Button>
             </Link>
             <Button
               colorScheme="red"
               mr={3}
-              onClick={() => deleteDoctor(doctor._id)}
+              onClick={() => deleteDoctor(doctors[selectedIndex]?._id)}
             >
-              Delete
+              <DeleteIcon />
             </Button>
-            <Link to={`/generateBill/${doctor._id}`}>
+            <Link to={`/generateBill/${doctors[selectedIndex]?._id}`}>
               <Button colorScheme="blue" mr={3}>
                 Generate Bill
               </Button>
             </Link>
-            <Link to={`/addJob/${doctor._id}`}>
+            <Link to={`/addJob/${doctors[selectedIndex]?._id}`}>
               <Button colorScheme="blue" mr={3}>
                 Add Job
               </Button>
