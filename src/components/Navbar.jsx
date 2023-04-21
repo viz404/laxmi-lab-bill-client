@@ -26,7 +26,7 @@ const Navbar = () => {
           <Text fontSize="lg">Add Doctor</Text>
         </Link>
         <Link to="/bill">
-          <Text fontSize="lg">All Bills</Text>
+          <Text fontSize="lg">Bills</Text>
         </Link>
       </Flex>
     </Flex>
