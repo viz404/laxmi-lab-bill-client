@@ -97,7 +97,7 @@ const Print = () => {
                       </Heading>
                     </Td>
                     <Td borderWidth={0}>
-                      <Text fontSize="md">{bill.doctorName}</Text>
+                      <Text fontSize="md">{bill?.doctor?.name}</Text>
                     </Td>
                   </Tr>
                   <Tr>
@@ -107,7 +107,7 @@ const Print = () => {
                       </Heading>
                     </Td>
                     <Td borderWidth={0}>
-                      <Text fontSize="md">{bill.doctorAddress}</Text>
+                      <Text fontSize="md">{bill?.doctor?.address}</Text>
                     </Td>
                   </Tr>
                 </Tbody>
@@ -331,7 +331,7 @@ const Print = () => {
                   Google/Phone Pay:
                 </Td>
                 <Td paddingX={0} paddingY={1} paddingRight={2}>
-                  <Text fontWeight="bold">976326993</Text>
+                  <Text fontWeight="bold">9763269993</Text>
                 </Td>
               </Tr>
             </Tbody>
