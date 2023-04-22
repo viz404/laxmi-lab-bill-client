@@ -96,7 +96,7 @@ const Bill = () => {
                 }}
               >
                 <Td borderRightWidth={1}>{trimDate(el.createdAt)}</Td>
-                <Td borderRightWidth={1}>{el.doctorName}</Td>
+                <Td borderRightWidth={1}>{el.doctor?.name}</Td>
                 <Td>₹ {el.totalAmount}</Td>
               </Tr>
             ))}
