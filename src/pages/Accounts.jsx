@@ -1,11 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Text,
+  useToast,
+  Heading,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
+} from "@chakra-ui/react";
+
 import { useDispatch, useSelector } from "react-redux";
-import DoctorsList from "../components/DoctorsList";
-import { loadDoctorsHelper } from "../reduxStore/doctor/doctorActions";
+import { loadAccountsHelper } from "../reduxStore/account/accountActions";
 
 const Accounts = () => {
-  const { doctors, total } = useSelector((store) => store.doctor);
+  const { accounts, total } = useSelector((store) => store.account);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
@@ -17,9 +39,10 @@ const Accounts = () => {
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      dispatch(loadDoctorsHelper(toast, page, search, 20));
+      dispatch(loadAccountsHelper(toast, page, search, 20));
     }, 500);
   }, [search, page]);
+
   return (
     <Box padding={3}>
       <Box margin="5rem auto" width="50vw">
@@ -48,7 +71,36 @@ const Accounts = () => {
           },
         }}
       >
-        <DoctorsList doctors={doctors} />
+        <Table variant="striped">
+          <Thead position="sticky" top={0} bg="white">
+            <Tr>
+              <Th>
+                <Heading as="h5" size="sm">
+                  Name
+                </Heading>
+              </Th>
+              <Th>
+                <Heading as="h5" size="sm">
+                  Area
+                </Heading>
+              </Th>
+              <Th>
+                <Heading as="h5" size="sm">
+                  Balance
+                </Heading>
+              </Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {accounts.map((el, index) => (
+              <Tr key={el._id}>
+                <Td borderRightWidth={1}>{el.doctorName}</Td>
+                <Td borderRightWidth={1}>{el?.doctor?.area}</Td>
+                <Td>₹ {el.balance}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </Box>
       <Flex
         justifyContent="space-between"
