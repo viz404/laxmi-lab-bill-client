@@ -58,7 +58,7 @@ const DoctorsList = ({ doctors }) => {
 
   const deleteDoctor = async (id) => {
     try {
-      dispatch(deleteDoctorHelper(id, doctor.name, toast));
+      dispatch(deleteDoctorHelper(id, doctors[selectedIndex]?.name, toast));
       onClose();
     } catch (error) {
       console.error(error.message);
