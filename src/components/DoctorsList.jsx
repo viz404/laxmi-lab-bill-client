@@ -93,11 +93,6 @@ const DoctorsList = ({ doctors }) => {
                 Area
               </Heading>
             </Th>
-            <Th>
-              <Heading as="h5" size="sm">
-                Balance
-              </Heading>
-            </Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -109,8 +104,7 @@ const DoctorsList = ({ doctors }) => {
             >
               <Td borderRightWidth={1}>{el.name}</Td>
               <Td borderRightWidth={1}>{el.phone}</Td>
-              <Td borderRightWidth={1}>{el.area}</Td>
-              <Td>₹ {el.balance}</Td>
+              <Td>{el.area}</Td>
             </Tr>
           ))}
         </Tbody>
@@ -120,7 +114,6 @@ const DoctorsList = ({ doctors }) => {
         onClose={onClose}
         isOpen={isOpen}
         motionPreset="slideInBottom"
-        size="2xl"
       >
         <ModalOverlay />
         <ModalContent>
@@ -141,10 +134,6 @@ const DoctorsList = ({ doctors }) => {
                   <Tr>
                     <Th fontSize="md">Area</Th>
                     <Td>{doctors[selectedIndex]?.area}</Td>
-                  </Tr>
-                  <Tr>
-                    <Th fontSize="md">Balance</Th>
-                    <Td>₹ {doctors[selectedIndex]?.balance}</Td>
                   </Tr>
                 </Tbody>
               </Table>
