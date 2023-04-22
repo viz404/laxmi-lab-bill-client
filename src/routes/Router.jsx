@@ -11,6 +11,7 @@ import {
   Doctors,
   EditJob,
   Accounts,
+  Statement,
 } from "../pages";
 
 export default function Router() {
@@ -27,6 +28,7 @@ export default function Router() {
       <Route path="/print/:id" Component={Print} />
       <Route path="/printRemark" Component={PrintRemark} />
       <Route path="/bill" Component={Bill} />
+      <Route path="/statement/:doctorId" Component={Statement} />
     </Routes>
   );
 }
