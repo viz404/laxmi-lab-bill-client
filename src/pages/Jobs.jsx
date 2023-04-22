@@ -123,7 +123,7 @@ const Jobs = () => {
             }}
           >
             <Table>
-              <Thead position="sticky" top={0}>
+              <Thead position="sticky" top={0} backgroundColor="white">
                 <Tr>
                   <Th borderRightWidth={1} borderColor="grey">
                     <Heading as="h5" size="sm">
