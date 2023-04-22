@@ -180,7 +180,7 @@ const GenerateBill = () => {
             onClick={handlePrint}
             isDisabled={jobs.length == 0}
           >
-            Print
+            Create
           </Button>
           <Button
             colorScheme="blue"
