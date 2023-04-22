@@ -291,6 +291,27 @@ const Print = () => {
                   {numberToWord(bill.totalAmount) + " Only"}
                 </Td>
               </Tr>
+              {bill?.previousBalance > 0 && (
+                <Tr>
+                  <Td
+                    colSpan={2}
+                    borderWidth={1}
+                    borderRightWidth={0}
+                    borderColor="blackAlpha.500"
+                  >
+                    Previous Balance
+                  </Td>
+                  <Td
+                    colSpan={4}
+                    borderBottomWidth={1}
+                    borderColor="blackAlpha.500"
+                    textAlign="right"
+                    fontWeight="bold"
+                  >
+                    ₹ {bill.previousBalance}
+                  </Td>
+                </Tr>
+              )}
             </Tbody>
           </Table>
         </Box>
