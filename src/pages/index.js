@@ -7,3 +7,4 @@ export { default as Bill } from "./Bill";
 export { default as Jobs } from "./Jobs";
 export { default as AddJob } from "./AddJob";
 export { default as EditJob } from "./EditJob";
+export { default as Accounts } from "./Accounts";

@@ -10,6 +10,7 @@ import {
   AddJob,
   Doctors,
   EditJob,
+  Accounts,
 } from "../pages";
 
 export default function Router() {
@@ -19,6 +20,7 @@ export default function Router() {
       <Route path="/addJob/:doctorId/:jobId?" Component={AddJob} />
       <Route path="/editJob/:jobId" Component={EditJob} />
       <Route path="/doctors" Component={Doctors} />
+      <Route path="/account" Component={Accounts} />
       <Route path="/addDoctor" Component={AddDoctor} />
       <Route path="/addDoctor/:id" Component={AddDoctor} />
       <Route path="/generateBill/:doctorId" Component={GenerateBill} />
