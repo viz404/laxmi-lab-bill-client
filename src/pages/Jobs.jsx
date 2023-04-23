@@ -106,7 +106,6 @@ const Jobs = () => {
             maxHeight="70vh"
             overflowY="auto"
             borderWidth={1}
-            borderRadius={10}
             borderColor="grey"
             borderBottomWidth={0}
             scrollBehavior="smooth"
