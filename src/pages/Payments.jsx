@@ -1,42 +1,50 @@
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
   Flex,
-  Heading,
   Input,
+  Text,
+  useToast,
+  Heading,
   Table,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
-  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
-import { loadBillHelper } from "../reduxStore/bill/billActions";
+import { useDispatch, useSelector } from "react-redux";
+
+import { loadPaymentsHelper } from "../reduxStore/payment/paymentActions";
 import trimDate from "../calculationHelpers/trimDate";
 
-const Bill = () => {
-  const { bills, total } = useSelector((store) => store.bill);
+const Payments = () => {
+  const { payments, total } = useSelector((store) => store.payment);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
   const timerRef = useRef();
   const dispatch = useDispatch();
   const toast = useToast();
-  const navigate = useNavigate();
 
   useEffect(() => {
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      dispatch(loadBillHelper(toast, page, search));
+      dispatch(loadPaymentsHelper(toast, page, search, 20));
     }, 500);
   }, [search, page]);
+
+  const showDescription = (mobile, cheque, notes) => {
+    return (
+      <Flex direction="column">
+        <Text>{mobile ? "Mobile: " + mobile : "Cheque number: " + cheque}</Text>
+        {notes && <Text>{notes}</Text>}
+      </Flex>
+    );
+  };
 
   return (
     <Box padding={3}>
@@ -69,41 +77,54 @@ const Bill = () => {
         <Table variant="striped">
           <Thead position="sticky" top={0} bg="white">
             <Tr>
-              <Th>
+              <Th borderRightWidth={1}>
                 <Heading as="h5" size="sm">
-                  Created At
+                  Date
+                </Heading>
+              </Th>
+              <Th borderRightWidth={1}>
+                <Heading as="h5" size="sm">
+                  Name
+                </Heading>
+              </Th>
+              <Th borderRightWidth={1}>
+                <Heading as="h5" size="sm">
+                  Mode
+                </Heading>
+              </Th>
+              <Th borderRightWidth={1}>
+                <Heading as="h5" size="sm">
+                  Description
                 </Heading>
               </Th>
               <Th>
                 <Heading as="h5" size="sm">
-                  Doctor
-                </Heading>
-              </Th>
-              <Th>
-                <Heading as="h5" size="sm">
-                  Total
+                  Amount
                 </Heading>
               </Th>
             </Tr>
           </Thead>
           <Tbody>
-            {bills.map((el) => (
-              <Tr
-                key={el._id}
-                cursor="pointer"
-                onClick={() => {
-                  navigate(`/print/${el._id}`);
-                }}
-              >
-                <Td borderRightWidth={1}>{trimDate(el.createdAt)}</Td>
-                <Td borderRightWidth={1}>{el.doctor?.name}</Td>
-                <Td>₹ {el.totalAmount}</Td>
+            {payments.map((el, index) => (
+              <Tr key={el._id}>
+                <Td borderRightWidth={1}>{trimDate(el?.date)}</Td>
+                <Td borderRightWidth={1}>{el?.doctor?.name}</Td>
+                <Td borderRightWidth={1}>{el?.mode}</Td>
+                <Td borderRightWidth={1}>
+                  {showDescription(el?.mobile, el?.cheque, el?.notes)}
+                </Td>
+                <Td>₹ {el.amount}</Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </Box>
-      <Flex justifyContent="space-between" width="70vw" margin="2rem auto">
+      <Flex
+        justifyContent="space-between"
+        width="70vw"
+        margin="2rem auto"
+        alignItems="center"
+      >
         <Button
           colorScheme="blue"
           isDisabled={page == 1}
@@ -112,11 +133,11 @@ const Bill = () => {
           Prev
         </Button>
         <Text>
-          List: {page} of {Math.ceil(Number(total) / 30)}
+          List: {page} of {Math.ceil(Number(total) / 20)}
         </Text>
         <Button
           colorScheme="blue"
-          isDisabled={Math.ceil(Number(total) / 30)}
+          isDisabled={Math.ceil(Number(total) / 20)}
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next
@@ -126,4 +147,4 @@ const Bill = () => {
   );
 };
 
-export default Bill;
+export default Payments;

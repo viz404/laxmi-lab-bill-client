@@ -97,7 +97,7 @@ const Print = () => {
                       </Heading>
                     </Td>
                     <Td borderWidth={0}>
-                      <Text fontSize="md">{bill.doctorName}</Text>
+                      <Text fontSize="md">{bill?.doctor?.name}</Text>
                     </Td>
                   </Tr>
                   <Tr>
@@ -107,7 +107,7 @@ const Print = () => {
                       </Heading>
                     </Td>
                     <Td borderWidth={0}>
-                      <Text fontSize="md">{bill.doctorAddress}</Text>
+                      <Text fontSize="md">{bill?.doctor?.address}</Text>
                     </Td>
                   </Tr>
                 </Tbody>
@@ -291,10 +291,37 @@ const Print = () => {
                   {numberToWord(bill.totalAmount) + " Only"}
                 </Td>
               </Tr>
+              {bill?.previousBalance > 0 && (
+                <Tr>
+                  <Td
+                    colSpan={2}
+                    borderWidth={1}
+                    borderRightWidth={0}
+                    borderColor="blackAlpha.500"
+                  >
+                    Previous Balance
+                  </Td>
+                  <Td
+                    colSpan={4}
+                    borderBottomWidth={1}
+                    borderColor="blackAlpha.500"
+                    textAlign="right"
+                    fontWeight="bold"
+                  >
+                    ₹ {bill.previousBalance}
+                  </Td>
+                </Tr>
+              )}
             </Tbody>
           </Table>
         </Box>
-        <Box width="fit-content" marginTop={7}>
+        <Box
+          width="fit-content"
+          marginTop={7}
+          sx={{
+            pageBreakInside: "avoid",
+          }}
+        >
           <Table variant="unstyled">
             <Tbody>
               <Tr>
@@ -331,7 +358,7 @@ const Print = () => {
                   Google/Phone Pay:
                 </Td>
                 <Td paddingX={0} paddingY={1} paddingRight={2}>
-                  <Text fontWeight="bold">976326993</Text>
+                  <Text fontWeight="bold">9763269993</Text>
                 </Td>
               </Tr>
             </Tbody>
@@ -347,6 +374,9 @@ const Print = () => {
             alignItems="end"
             justifyContent="center"
             padding={1}
+            sx={{
+              pageBreakInside: "avoid",
+            }}
           >
             Reciever's Signature
           </Flex>
@@ -359,6 +389,9 @@ const Print = () => {
             alignItems="end"
             justifyContent="center"
             padding={1}
+            sx={{
+              pageBreakInside: "avoid",
+            }}
           >
             For Shree Laxmi Dental Lab
           </Flex>

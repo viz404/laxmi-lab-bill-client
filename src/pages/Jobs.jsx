@@ -102,11 +102,10 @@ const Jobs = () => {
         </Flex>
         <Box>
           <Box
-            margin="2rem 8rem"
+            margin="2rem"
             maxHeight="70vh"
             overflowY="auto"
             borderWidth={1}
-            borderRadius={10}
             borderColor="grey"
             borderBottomWidth={0}
             scrollBehavior="smooth"
@@ -123,7 +122,7 @@ const Jobs = () => {
             }}
           >
             <Table>
-              <Thead>
+              <Thead position="sticky" top={0} backgroundColor="white">
                 <Tr>
                   <Th borderRightWidth={1} borderColor="grey">
                     <Heading as="h5" size="sm">
@@ -173,7 +172,7 @@ const Jobs = () => {
                       {el.jobNumber}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
-                      {el.doctorName}
+                      {el.doctor?.name}
                     </Td>
                     <Td borderRightWidth={1} borderColor="grey">
                       {el.patientName}
@@ -299,7 +298,7 @@ const Jobs = () => {
                     <Th>
                       <Text fontSize="sm">Doctor Name</Text>
                     </Th>
-                    <Td>{jobs[selectedIndex]?.doctorName}</Td>
+                    <Td>{jobs[selectedIndex]?.doctor.name}</Td>
                   </Tr>
                   {jobs[selectedIndex]?.shade && (
                     <Tr>
@@ -317,6 +316,78 @@ const Jobs = () => {
                       <Td>{jobs[selectedIndex]?.notes}</Td>
                     </Tr>
                   )}
+                </Tbody>
+              </Table>
+            </Box>
+            <Box
+              marginTop={5}
+              borderWidth={2}
+              borderColor="#b9f5d0"
+              borderRadius={10}
+              overflow="hidden"
+            >
+              <Table>
+                <Tbody>
+                  <Tr>
+                    <Td borderBottomColor="grey" borderBottomWidth={0}>
+                      <Flex direction="column" gap={3}>
+                        {jobs[selectedIndex]?.works.map((ele) => (
+                          <Flex justifyContent="space-between" key={ele.title}>
+                            <Text>{ele.title}</Text>
+                            <Table width="fit-content">
+                              <Tbody>
+                                <Tr>
+                                  <Td
+                                    padding={0}
+                                    borderRightWidth={2}
+                                    borderBottomWidth={2}
+                                    borderColor="grey"
+                                    paddingRight={1}
+                                  >
+                                    <Text fontSize="xl">
+                                      {ele.topLeft?.replaceAll(",", " ")}
+                                    </Text>
+                                  </Td>
+                                  <Td
+                                    padding={0}
+                                    borderBottomWidth={2}
+                                    borderColor="grey"
+                                    paddingLeft={1}
+                                  >
+                                    <Text fontSize="xl">
+                                      {ele.topRight?.replaceAll(",", " ")}
+                                    </Text>
+                                  </Td>
+                                </Tr>
+                                <Tr>
+                                  <Td
+                                    padding={0}
+                                    borderRightWidth={2}
+                                    borderColor="grey"
+                                    borderBottomWidth={0}
+                                    paddingRight={1}
+                                  >
+                                    <Text fontSize="xl">
+                                      {ele.bottomLeft?.replaceAll(",", " ")}
+                                    </Text>
+                                  </Td>
+                                  <Td
+                                    padding={0}
+                                    borderBottomWidth={0}
+                                    paddingLeft={1}
+                                  >
+                                    <Text fontSize="xl">
+                                      {ele.bottomRight?.replaceAll(",", " ")}
+                                    </Text>
+                                  </Td>
+                                </Tr>
+                              </Tbody>
+                            </Table>
+                          </Flex>
+                        ))}
+                      </Flex>
+                    </Td>
+                  </Tr>
                 </Tbody>
               </Table>
             </Box>
@@ -342,7 +413,9 @@ const Jobs = () => {
               colorScheme="yellow"
               mr={3}
               onClick={() => {
-                navigate(`/editJob/${jobs[selectedIndex]?._id}`);
+                navigate(
+                  `/addJob/${jobs[selectedIndex]?.doctor._id}/${jobs[selectedIndex]?._id}`
+                );
               }}
             >
               Edit

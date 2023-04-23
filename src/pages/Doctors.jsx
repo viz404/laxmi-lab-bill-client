@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DoctorsList from "../components/DoctorsList";
 import { loadDoctorsHelper } from "../reduxStore/doctor/doctorActions";
+import { Link } from "react-router-dom";
 
 const Doctors = () => {
   const { doctors, total } = useSelector((store) => store.doctor);
@@ -23,13 +24,16 @@ const Doctors = () => {
 
   return (
     <Box padding={3}>
-      <Box margin="5rem auto" width="50vw">
+      <Flex margin="5rem auto" width="50vw" gap={10}>
         <Input
           placeholder="Enter Doctor name"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-      </Box>
+        <Link to="/addDoctor">
+          <Button colorScheme="blue">New Doctor</Button>
+        </Link>
+      </Flex>
       <Box
         margin="2rem 8rem"
         maxHeight="70vh"

@@ -1,5 +1,18 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Box, Flex, IconButton, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  IconButton,
+  Input,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Tr,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -90,24 +103,10 @@ const AddDoctor = () => {
     setDoctor({ ...doctor });
   };
 
-  const submitDoctor = () => {
+  const submitDoctor = (event) => {
+    event.preventDefault();
+
     let missing = [];
-
-    if (doctor.name == "") {
-      missing.push("Name");
-    }
-
-    if (doctor.phone == "") {
-      missing.push("Phone");
-    }
-
-    if (doctor.area == "") {
-      missing.push("Area");
-    }
-
-    if (doctor.address == "") {
-      missing.push("Address");
-    }
 
     if (doctor.typeOfWorks.length == 0) {
       missing.push("Work");
@@ -138,47 +137,128 @@ const AddDoctor = () => {
   };
 
   return (
-    <Box padding={3}>
-      <Flex
-        marginTop={3}
-        alignItems="center"
-        gap={10}
-        justifyContent="space-around"
-      >
-        <DummyAvatar />
-        <Box flexGrow={2}>
-          <FormTable
-            name={doctor.name}
-            phone={doctor.phone}
-            area={doctor.area}
-            address={doctor.address}
-            setter={formSetter}
-          />
-        </Box>
-        <IconButton
-          size="lg"
-          bg="blue.100"
-          icon={<AddIcon />}
-          onClick={submitDoctor}
-        />
-      </Flex>
-      <Flex
-        gap={10}
-        alignItems="flex-start"
-        paddingX={5}
-        marginTop={10}
-        justifyContent="center"
-      >
-        <WorkSelector
-          selectedWorkTypes={doctor.typeOfWorks.map((e) => e.title)}
-          selectTypeOfWork={selectTypeOfWork}
-        />
-        <Box>
-          <WorkPriceTable
-            typeOfWorks={doctor.typeOfWorks}
-            updateWorkPrice={updateWorkPrice}
-          />
-        </Box>
+    <Box paddingY={3} paddingX={10}>
+      <Flex direction="column" alignItems="center" gap={10}>
+        <DummyAvatar rounded={true} />
+        <form
+          style={{ alignSelf: "flex-start", width: "100%" }}
+          onSubmit={submitDoctor}
+        >
+          <Box
+            borderWidth={1}
+            borderColor="blackAlpha.400"
+            borderRadius={5}
+            overflow="hidden"
+            width="100%"
+          >
+            <Table>
+              <Tbody>
+                <Tr>
+                  <Th>
+                    <Heading as="h5" size="sm">
+                      Name
+                    </Heading>
+                  </Th>
+                  <Td>
+                    <Input
+                      required={true}
+                      placeholder="Enter name"
+                      value={doctor.name || ""}
+                      name="name"
+                      onChange={formSetter}
+                      borderWidth={1}
+                      borderColor="blackAlpha.400"
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>
+                    <Heading as="h5" size="sm">
+                      Phone No
+                    </Heading>
+                  </Th>
+                  <Td>
+                    <Input
+                      required={true}
+                      placeholder="Enter Phone no"
+                      value={doctor.phone || ""}
+                      name="phone"
+                      onChange={formSetter}
+                      borderWidth={1}
+                      borderColor="blackAlpha.400"
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>
+                    <Heading as="h5" size="sm">
+                      Area
+                    </Heading>
+                  </Th>
+                  <Td>
+                    <Input
+                      required={true}
+                      placeholder="Enter area"
+                      value={doctor.area || ""}
+                      name="area"
+                      onChange={formSetter}
+                      borderWidth={1}
+                      borderColor="blackAlpha.400"
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Th>
+                    <Heading as="h5" size="sm">
+                      Address
+                    </Heading>
+                  </Th>
+                  <Td>
+                    <Input
+                      required={true}
+                      placeholder="Enter address"
+                      value={doctor.address || ""}
+                      name="address"
+                      onChange={formSetter}
+                      borderWidth={1}
+                      borderColor="blackAlpha.400"
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td verticalAlign="top">
+                    <WorkSelector
+                      selectedWorkTypes={doctor.typeOfWorks.map((e) => e.title)}
+                      selectTypeOfWork={selectTypeOfWork}
+                    />
+                  </Td>
+                  <Td verticalAlign="top">
+                    <WorkPriceTable
+                      typeOfWorks={doctor.typeOfWorks}
+                      updateWorkPrice={updateWorkPrice}
+                    />
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex justifyContent="center">
+                      <Button onClick={() => navigate("/doctors")}>
+                        Cancel
+                      </Button>
+                    </Flex>
+                  </Td>
+                  <Td>
+                    <Flex justifyContent="center">
+                      <Button type="submit" colorScheme="yellow">
+                        Submit
+                      </Button>
+                    </Flex>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </Box>
+        </form>
       </Flex>
     </Box>
   );

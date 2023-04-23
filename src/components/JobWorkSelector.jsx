@@ -1,21 +1,24 @@
-import { Checkbox, Flex } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-const JobWorkSelector = ({ typeOfWorks, selectTypeOfWork }) => {
+const JobWorkSelector = ({
+  typeOfWorks,
+  selectTypeOfWork,
+  selectedTypeOfWorks,
+}) => {
   return (
-    <Flex
+    <Box
       borderWidth={1}
       borderRadius={15}
       padding={2}
-      direction="column"
-      gap={3}
-      minWidth="15vw"
+      width="20vw"
       boxShadow="md"
     >
       <Flex
         maxHeight={"40vh"}
         overflowY="auto"
         direction="column"
+        gap={2}
         sx={{
           "::-webkit-scrollbar": {
             display: "none",
@@ -28,13 +31,14 @@ const JobWorkSelector = ({ typeOfWorks, selectTypeOfWork }) => {
             size="lg"
             name={el.title}
             spacing="1rem"
+            isChecked={selectedTypeOfWorks.includes(el.title)}
             onChange={(event) => selectTypeOfWork(event, el)}
           >
-            {el.title}
+            <Text fontSize="xl">{el.title}</Text>
           </Checkbox>
         ))}
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 

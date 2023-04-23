@@ -22,17 +22,15 @@ const WorkSelector = ({
   selectedWorkTypes,
   selectTypeOfWork,
 }) => {
-  const [searchWorkType, setSearchWorkType] = useState("");
   const [addWorkType, setAddWorkType] = useState("");
   const [workTypes, setWorkTypes] = useState([]);
   const { types } = useSelector((store) => store.work);
 
   useEffect(() => {
-    let loadWorkTypes = types.map((e) => {
+    let loadWorkTypes = types.map((el) => {
       return {
-        id: e._id,
-        title: e.title,
-        status: selectedWorkTypes.includes(e.title),
+        ...el,
+        status: selectedWorkTypes.includes(el.title),
       };
     });
 
@@ -45,16 +43,36 @@ const WorkSelector = ({
   const dispatch = useDispatch();
   const toast = useToast();
 
-  const addNewWorkType = (event) => {
-    event.preventDefault();
-
+  const addNewWorkType = () => {
     const title = addWorkType.toUpperCase();
+
+    if (title == "") {
+      return;
+    }
     dispatch(addWorkTypeHelper(title, toast));
     setAddWorkType("");
+    onToggle();
   };
 
   const deleteWorkType = (id) => {
     dispatch(deleteWorkTypeHelper(id, toast));
+  };
+
+  const handleKeyDown = (event) => {
+    const { key } = event;
+
+    if (key == "Enter") {
+      event.preventDefault();
+      addNewWorkType();
+    }
+  };
+
+  const handleOnChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setAddWorkType(value);
   };
 
   return (
@@ -92,7 +110,7 @@ const WorkSelector = ({
             <Checkbox
               isChecked={el.status}
               size="lg"
-              id={el.id}
+              id={el._id}
               name={el.title}
               onChange={selectTypeOfWork}
             >
@@ -100,7 +118,7 @@ const WorkSelector = ({
             </Checkbox>
             <IconButton
               icon={<DeleteIcon />}
-              onClick={() => deleteWorkType(el.id)}
+              onClick={() => deleteWorkType(el._id)}
             />
           </Flex>
         ))}
@@ -109,22 +127,20 @@ const WorkSelector = ({
         Add New
       </Button>
       <Collapse in={isOpen} animateOpacity>
-        <form onSubmit={addNewWorkType}>
-          <Flex gap={2}>
-            <Input
-              placeholder="Enter new work"
-              value={addWorkType}
-              onChange={(e) => {
-                setAddWorkType(e.target.value);
-              }}
-            />
-            <IconButton
-              type="submit"
-              aria-label="add new work"
-              icon={<AddIcon />}
-            />
-          </Flex>
-        </form>
+        <Flex gap={2}>
+          <Input
+            placeholder="Enter new work"
+            value={addWorkType}
+            onChange={handleOnChange}
+            onKeyDown={handleKeyDown}
+            onSubmit={addNewWorkType}
+          />
+          <IconButton
+            aria-label="add new work"
+            icon={<AddIcon />}
+            onClick={addNewWorkType}
+          />
+        </Flex>
       </Collapse>
     </Flex>
   );

@@ -19,17 +19,17 @@ const Navbar = () => {
         <Link to="/">
           <Text fontSize="lg">Jobs</Text>
         </Link>
-        <Link to="/addJob">
-          <Text fontSize="lg">Add Job</Text>
-        </Link>
         <Link to="/doctors">
           <Text fontSize="lg">Doctors</Text>
         </Link>
-        <Link to="/addDoctor">
-          <Text fontSize="lg">Add Doctor</Text>
-        </Link>
         <Link to="/bill">
-          <Text fontSize="lg">All Bills</Text>
+          <Text fontSize="lg">Bills</Text>
+        </Link>
+        <Link to="/account">
+          <Text fontSize="lg">Accounts</Text>
+        </Link>
+        <Link to="/payments">
+          <Text fontSize="lg">Payments</Text>
         </Link>
       </Flex>
     </Flex>

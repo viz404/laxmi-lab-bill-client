@@ -1,7 +1,12 @@
 const trimDate = (date) => {
-  let modified = date.split("T").shift().split("-").reverse();
+  let modified = "";
 
-  return modified.join("/");
+  if (date) {
+    let dateValue = new Date(date);
+    modified = new Intl.DateTimeFormat("en-IN").format(dateValue);
+  }
+
+  return modified;
 };
 
 export default trimDate;

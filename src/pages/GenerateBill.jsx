@@ -73,9 +73,19 @@ const GenerateBill = () => {
         till_date: tillDate,
       });
 
-      let filteredJobs = filterJobs(data.response);
-      setJobs([...filteredJobs]);
-    } catch (error) {}
+      // let filteredJobs = filterJobs(data.response);
+      // setJobs([...filteredJobs]);
+      setJobs([...data.response]);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        position: "top",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const handlePrint = () => {
@@ -103,20 +113,14 @@ const GenerateBill = () => {
         isClosable: true,
       });
     } else {
-      let currDate = new Date();
-      currDate = currDate.toISOString();
-
       const totalAmount = jobs.reduce((prev, curr) => prev + curr.price, 0);
 
       const billObj = {
-        doctorId,
-        doctorName: doctor.name,
-        doctorAddress: doctor.address,
-        createdAt: currDate,
+        doctor: doctorId,
         fromDate,
         tillDate,
         totalAmount,
-        jobs,
+        jobs: jobs.map((el) => el._id),
       };
 
       dispatch(addBillHelper(billObj, toast, navigate));
@@ -176,7 +180,7 @@ const GenerateBill = () => {
             onClick={handlePrint}
             isDisabled={jobs.length == 0}
           >
-            Print
+            Create
           </Button>
           <Button
             colorScheme="blue"
@@ -300,7 +304,7 @@ const GenerateBill = () => {
                               borderColor="blackAlpha.500"
                               paddingRight={1}
                             >
-                              <Text> {ele.topLeft}</Text>
+                              <Text> {ele.topLeft?.replaceAll(",", " ")}</Text>
                             </Td>
                             <Td
                               padding={0}
@@ -308,7 +312,7 @@ const GenerateBill = () => {
                               borderColor="blackAlpha.500"
                               paddingLeft={1}
                             >
-                              <Text> {ele.topRight}</Text>
+                              <Text> {ele.topRight?.replaceAll(",", " ")}</Text>
                             </Td>
                           </Tr>
                           <Tr>
@@ -319,14 +323,18 @@ const GenerateBill = () => {
                               borderBottomWidth={0}
                               paddingRight={1}
                             >
-                              <Text>{ele.bottomLeft}</Text>
+                              <Text>
+                                {ele.bottomLeft?.replaceAll(",", " ")}
+                              </Text>
                             </Td>
                             <Td
                               padding={0}
                               borderBottomWidth={0}
                               paddingLeft={1}
                             >
-                              <Text>{ele.bottomRight}</Text>
+                              <Text>
+                                {ele.bottomRight?.replaceAll(",", " ")}
+                              </Text>
                             </Td>
                           </Tr>
                         </Tbody>

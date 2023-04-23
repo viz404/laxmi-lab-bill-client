@@ -1,42 +1,49 @@
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
   Flex,
-  Heading,
   Input,
+  Text,
+  useToast,
+  Heading,
   Table,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
-  useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { loadAccountsHelper } from "../reduxStore/account/accountActions";
+import AccountModal from "../components/AccountModal";
 
-import { loadBillHelper } from "../reduxStore/bill/billActions";
-import trimDate from "../calculationHelpers/trimDate";
-
-const Bill = () => {
-  const { bills, total } = useSelector((store) => store.bill);
+const Accounts = () => {
+  const { accounts, total } = useSelector((store) => store.account);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const timerRef = useRef();
   const dispatch = useDispatch();
   const toast = useToast();
-  const navigate = useNavigate();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      dispatch(loadBillHelper(toast, page, search));
+      dispatch(loadAccountsHelper(toast, page, search, 20));
     }, 500);
   }, [search, page]);
+
+  const openModal = (index) => {
+    setSelectedIndex(index);
+    onOpen();
+  };
 
   return (
     <Box padding={3}>
@@ -71,39 +78,42 @@ const Bill = () => {
             <Tr>
               <Th>
                 <Heading as="h5" size="sm">
-                  Created At
+                  Name
                 </Heading>
               </Th>
               <Th>
                 <Heading as="h5" size="sm">
-                  Doctor
+                  Area
                 </Heading>
               </Th>
               <Th>
                 <Heading as="h5" size="sm">
-                  Total
+                  Balance
                 </Heading>
               </Th>
             </Tr>
           </Thead>
           <Tbody>
-            {bills.map((el) => (
+            {accounts.map((el, index) => (
               <Tr
                 key={el._id}
                 cursor="pointer"
-                onClick={() => {
-                  navigate(`/print/${el._id}`);
-                }}
+                onClick={() => openModal(index)}
               >
-                <Td borderRightWidth={1}>{trimDate(el.createdAt)}</Td>
-                <Td borderRightWidth={1}>{el.doctor?.name}</Td>
-                <Td>₹ {el.totalAmount}</Td>
+                <Td borderRightWidth={1}>{el.doctorName}</Td>
+                <Td borderRightWidth={1}>{el?.doctor?.area}</Td>
+                <Td>₹ {el.balance}</Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </Box>
-      <Flex justifyContent="space-between" width="70vw" margin="2rem auto">
+      <Flex
+        justifyContent="space-between"
+        width="70vw"
+        margin="2rem auto"
+        alignItems="center"
+      >
         <Button
           colorScheme="blue"
           isDisabled={page == 1}
@@ -112,18 +122,25 @@ const Bill = () => {
           Prev
         </Button>
         <Text>
-          List: {page} of {Math.ceil(Number(total) / 30)}
+          List: {page} of {Math.ceil(Number(total) / 20)}
         </Text>
         <Button
           colorScheme="blue"
-          isDisabled={Math.ceil(Number(total) / 30)}
+          isDisabled={Math.ceil(Number(total) / 20)}
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next
         </Button>
       </Flex>
+      <AccountModal
+        isOpen={isOpen}
+        onClose={onClose}
+        doctorName={accounts[selectedIndex]?.doctorName}
+        doctorId={accounts[selectedIndex]?.doctor?._id}
+        balance={accounts[selectedIndex]?.balance}
+      />
     </Box>
   );
 };
 
-export default Bill;
+export default Accounts;

@@ -20,7 +20,7 @@ export const loadBillHelper = (toast, page, search) => {
       const total = headers.get("X-Total-Count");
       dispatch(loadBill({ data: data.response, total }));
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
         description: error.message,
@@ -47,7 +47,7 @@ export const addBillHelper = (bill, toast, navigate) => {
       });
       navigate(`/print/${data.response._id}`);
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
       toast({
         title: "Something went wrong",
         description: error.message,
