@@ -13,6 +13,7 @@ import {
   Accounts,
   Statement,
   AddPayment,
+  Payments,
 } from "../pages";
 
 export default function Router() {
@@ -31,6 +32,7 @@ export default function Router() {
       <Route path="/bill" Component={Bill} />
       <Route path="/statement/:doctorId" Component={Statement} />
       <Route path="/addPayment/:doctorId" Component={AddPayment} />
+      <Route path="/payments" Component={Payments} />
     </Routes>
   );
 }

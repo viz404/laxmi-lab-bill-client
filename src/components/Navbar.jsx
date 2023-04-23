@@ -31,6 +31,9 @@ const Navbar = () => {
         <Link to="/account">
           <Text fontSize="lg">Accounts</Text>
         </Link>
+        <Link to="/payments">
+          <Text fontSize="lg">Payments</Text>
+        </Link>
       </Flex>
     </Flex>
   );
