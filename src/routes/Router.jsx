@@ -12,6 +12,7 @@ import {
   EditJob,
   Accounts,
   Statement,
+  AddPayment,
 } from "../pages";
 
 export default function Router() {
@@ -29,6 +30,7 @@ export default function Router() {
       <Route path="/printRemark" Component={PrintRemark} />
       <Route path="/bill" Component={Bill} />
       <Route path="/statement/:doctorId" Component={Statement} />
+      <Route path="/addPayment/:doctorId" Component={AddPayment} />
     </Routes>
   );
 }
