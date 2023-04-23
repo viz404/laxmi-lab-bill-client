@@ -5,6 +5,7 @@ import doctorReducer from "./doctor/doctorReducer";
 import jobReducer from "./jobs/jobReducer";
 import workTypeReducer from "./workType/workTypeReducer";
 import accountReducer from "./account/accountReducer";
+import paymentReducer from "./payment/paymentReducer";
 
 const rootReducer = combineReducers({
   doctor: doctorReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   bill: billReducer,
   job: jobReducer,
   account: accountReducer,
+  payment: paymentReducer,
 });
 
 export default rootReducer;
