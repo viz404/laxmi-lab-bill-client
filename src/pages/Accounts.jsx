@@ -7,13 +7,6 @@ import {
   Text,
   useToast,
   Heading,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Table,
   Tbody,
   Td,
@@ -25,15 +18,19 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { loadAccountsHelper } from "../reduxStore/account/accountActions";
+import AccountModal from "../components/AccountModal";
 
 const Accounts = () => {
   const { accounts, total } = useSelector((store) => store.account);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const timerRef = useRef();
   const dispatch = useDispatch();
   const toast = useToast();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     clearTimeout(timerRef.current);
@@ -42,6 +39,11 @@ const Accounts = () => {
       dispatch(loadAccountsHelper(toast, page, search, 20));
     }, 500);
   }, [search, page]);
+
+  const openModal = (index) => {
+    setSelectedIndex(index);
+    onOpen();
+  };
 
   return (
     <Box padding={3}>
@@ -93,7 +95,11 @@ const Accounts = () => {
           </Thead>
           <Tbody>
             {accounts.map((el, index) => (
-              <Tr key={el._id}>
+              <Tr
+                key={el._id}
+                cursor="pointer"
+                onClick={() => openModal(index)}
+              >
                 <Td borderRightWidth={1}>{el.doctorName}</Td>
                 <Td borderRightWidth={1}>{el?.doctor?.area}</Td>
                 <Td>₹ {el.balance}</Td>
@@ -126,6 +132,13 @@ const Accounts = () => {
           Next
         </Button>
       </Flex>
+      <AccountModal
+        isOpen={isOpen}
+        onClose={onClose}
+        doctorName={accounts[selectedIndex]?.doctorName}
+        doctorId={accounts[selectedIndex]?.doctor?._id}
+        balance={accounts[selectedIndex]?.balance}
+      />
     </Box>
   );
 };
