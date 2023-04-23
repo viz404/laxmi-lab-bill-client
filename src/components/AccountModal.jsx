@@ -41,9 +41,9 @@ const AccountModal = ({ isOpen, onClose, doctorName, doctorId, balance }) => {
         </ModalBody>
         <ModalFooter>
           <Flex margin="auto" gap={5}>
-            <Button colorScheme="yellow" onClick={onClose}>
-              Add Payment
-            </Button>
+            <Link to={`/addPayment/${doctorId}`}>
+              <Button colorScheme="yellow">Add Payment</Button>
+            </Link>
             <Link to={`/statement/${doctorId}`}>
               <Button colorScheme="green">Show Statement</Button>
             </Link>
