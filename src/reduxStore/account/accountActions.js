@@ -9,13 +9,16 @@ const loadAccounts = (payload) => {
   };
 };
 
-export const loadAccountsHelper = (toast, page, search, limit) => {
+export const loadAccountsHelper = (
+  toast,
+  page = 1,
+  search = "",
+  limit = 10
+) => {
   return async (dispatch, getState) => {
     try {
       const { data, headers } = await axios.get(
-        `${BASE_URL}/account?_limit=${limit || "10"}&_page=${
-          page || "1"
-        }&doctor_name=${search || ""}`
+        `${BASE_URL}/account?_limit=${limit}&_page=${page}&doctor_name=${search}`
       );
       const total = headers.get("X-Total-Count");
       dispatch(loadAccounts({ data: data.response, total }));
