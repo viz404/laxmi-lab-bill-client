@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import fetchTransactionsByDoctorId from "../apiHelpers/fetchTransactionsByDoctorId";
 import {
   Box,
   Button,
@@ -17,8 +15,12 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
+
+import fetchTransactionsByDoctorId from "../apiHelpers/fetchTransactionsByDoctorId";
 import fetchDoctorById from "../apiHelpers/fetchDoctorById";
 import fetchAccountByDoctorId from "../apiHelpers/fetchAccountByDoctorId";
+
+import trimDate from "../calculationHelpers/trimDate";
 
 const Statement = () => {
   const [transactions, setTransactions] = useState([]);
@@ -167,6 +169,22 @@ const Statement = () => {
                 fontSize={15}
                 color="black"
               >
+                Sr
+              </Th>
+              <Th
+                borderColor="silver"
+                borderWidth={1}
+                fontSize={15}
+                color="black"
+              >
+                Date
+              </Th>
+              <Th
+                borderColor="silver"
+                borderWidth={1}
+                fontSize={15}
+                color="black"
+              >
                 Particular
               </Th>
               <Th
@@ -196,8 +214,16 @@ const Statement = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {transactions.map((el) => (
+            {transactions.map((el, index) => (
               <Tr key={el._id}>
+                <Td borderColor="silver" borderWidth={1}>
+                  {index + 1}
+                </Td>
+                <Td borderColor="silver" borderWidth={1}>
+                  {trimDate(
+                    el?.bill?.createdAt || el?.payment?.date || el?.createdAt
+                  )}
+                </Td>
                 <Td borderColor="silver" borderWidth={1}>
                   {el?.particular}
                 </Td>
@@ -216,7 +242,7 @@ const Statement = () => {
               <Tr>
                 <Th
                   fontSize={15}
-                  colSpan={3}
+                  colSpan={5}
                   borderColor="silver"
                   borderWidth={1}
                   color="black"
