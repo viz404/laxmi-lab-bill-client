@@ -65,6 +65,7 @@ const AddPayment = () => {
     event.preventDefault();
 
     payment.doctor = doctor._id;
+    payment.doctorName = doctor.name;
 
     switch (payment.mode) {
       case "Online UPI": {
