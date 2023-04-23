@@ -17,11 +17,11 @@ import {
 } from "@chakra-ui/react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { loadAccountsHelper } from "../reduxStore/account/accountActions";
+import { loadDoctorsHelper } from "../reduxStore/doctor/doctorActions";
 import AccountModal from "../components/AccountModal";
 
 const Accounts = () => {
-  const { accounts, total } = useSelector((store) => store.account);
+  const { doctors, total } = useSelector((store) => store.doctor);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -36,7 +36,7 @@ const Accounts = () => {
     clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
-      dispatch(loadAccountsHelper(toast, page, search, 20));
+      dispatch(loadDoctorsHelper(toast, page, search, 20, "balance"));
     }, 500);
   }, [search, page]);
 
@@ -94,15 +94,15 @@ const Accounts = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {accounts.map((el, index) => (
+            {doctors.map((el, index) => (
               <Tr
                 key={el._id}
                 cursor="pointer"
                 onClick={() => openModal(index)}
               >
-                <Td borderRightWidth={1}>{el.doctorName}</Td>
-                <Td borderRightWidth={1}>{el?.doctor?.area}</Td>
-                <Td>₹ {el.balance}</Td>
+                <Td borderRightWidth={1}>{el?.name}</Td>
+                <Td borderRightWidth={1}>{el?.area}</Td>
+                <Td>₹ {el?.balance}</Td>
               </Tr>
             ))}
           </Tbody>
@@ -135,9 +135,9 @@ const Accounts = () => {
       <AccountModal
         isOpen={isOpen}
         onClose={onClose}
-        doctorName={accounts[selectedIndex]?.doctorName}
-        doctorId={accounts[selectedIndex]?.doctor?._id}
-        balance={accounts[selectedIndex]?.balance}
+        doctorName={doctors[selectedIndex]?.name}
+        doctorId={doctors[selectedIndex]?._id}
+        balance={doctors[selectedIndex]?.balance}
       />
     </Box>
   );

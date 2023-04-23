@@ -18,7 +18,6 @@ import makePayment from "../apiHelpers/makePayment";
 
 const AddPayment = () => {
   const [doctor, setDoctor] = useState({});
-  const [account, setAccount] = useState({});
   const [payment, setPayment] = useState({});
 
   const { doctorId } = useParams();
@@ -30,22 +29,6 @@ const AddPayment = () => {
       fetchDoctorById(doctorId)
         .then(({ data: { response } }) => {
           setDoctor(response);
-        })
-        .catch((error) => {
-          console.error(error);
-          toast({
-            title: "Something went wrong",
-            description: error.message,
-            position: "top",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        });
-
-      fetchAccountByDoctorId(doctorId)
-        .then(({ data: { response } }) => {
-          setAccount(response);
         })
         .catch((error) => {
           console.error(error);
@@ -120,7 +103,7 @@ const AddPayment = () => {
             </Tr>
             <Tr>
               <Th fontSize={15}>Previous Balance</Th>
-              <Td>₹ {account?.balance}</Td>
+              <Td>₹ {doctor?.balance}</Td>
             </Tr>
             <Tr>
               <Th fontSize={15}>Payment Amount</Th>

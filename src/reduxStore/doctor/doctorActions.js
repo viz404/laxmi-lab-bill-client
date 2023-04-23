@@ -9,11 +9,19 @@ const loadDoctors = (payload) => {
   };
 };
 
-export const loadDoctorsHelper = (toast, page = 1, search = "", limit = 10) => {
+export const loadDoctorsHelper = (
+  toast,
+  page = 1,
+  search = "",
+  limit = 10,
+  sort
+) => {
   return async (dispatch, getState) => {
     try {
       const { data, headers } = await axios.get(
-        `${BASE_URL}/doctor?_limit=${limit}&_page=${page}&name=${search}`
+        `${BASE_URL}/doctor?_limit=${limit}&_page=${page}&name=${search}${
+          sort ? "&sort=" + sort : ""
+        }`
       );
       const total = headers.get("X-Total-Count");
       dispatch(loadDoctors({ data: data.response, total }));

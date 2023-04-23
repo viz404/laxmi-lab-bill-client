@@ -27,7 +27,6 @@ const Statement = () => {
   const [fromDate, setFromDate] = useState("");
   const [tillDate, setTillDate] = useState("");
   const [doctor, setDoctor] = useState({});
-  const [account, setAccount] = useState({});
 
   const { doctorId } = useParams();
   const toast = useToast();
@@ -37,22 +36,6 @@ const Statement = () => {
       fetchDoctorById(doctorId)
         .then(({ data: { response } }) => {
           setDoctor(response);
-        })
-        .catch((error) => {
-          console.error(error);
-          toast({
-            title: "Something went wrong",
-            description: error.message,
-            position: "top",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
-        });
-
-      fetchAccountByDoctorId(doctorId)
-        .then(({ data: { response } }) => {
-          setAccount(response);
         })
         .catch((error) => {
           console.error(error);
@@ -250,7 +233,7 @@ const Statement = () => {
                   Closing balance
                 </Th>
                 <Td fontWeight="bold" borderColor="silver" borderWidth={1}>
-                  ₹ {account?.balance}
+                  ₹ {doctor?.balance}
                 </Td>
               </Tr>
             )}
