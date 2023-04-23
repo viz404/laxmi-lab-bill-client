@@ -315,7 +315,13 @@ const Print = () => {
             </Tbody>
           </Table>
         </Box>
-        <Box width="fit-content" marginTop={7}>
+        <Box
+          width="fit-content"
+          marginTop={7}
+          sx={{
+            pageBreakInside: "avoid",
+          }}
+        >
           <Table variant="unstyled">
             <Tbody>
               <Tr>
@@ -368,6 +374,9 @@ const Print = () => {
             alignItems="end"
             justifyContent="center"
             padding={1}
+            sx={{
+              pageBreakInside: "avoid",
+            }}
           >
             Reciever's Signature
           </Flex>
@@ -380,6 +389,9 @@ const Print = () => {
             alignItems="end"
             justifyContent="center"
             padding={1}
+            sx={{
+              pageBreakInside: "avoid",
+            }}
           >
             For Shree Laxmi Dental Lab
           </Flex>
