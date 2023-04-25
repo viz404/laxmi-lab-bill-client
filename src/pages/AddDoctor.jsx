@@ -226,6 +226,44 @@ const AddDoctor = () => {
                   </Td>
                 </Tr>
                 <Tr>
+                  <Th>
+                    <Heading as="h5" size="sm">
+                      Previous Balance
+                    </Heading>
+                  </Th>
+                  <Td>
+                    <Input
+                      placeholder="Enter balance"
+                      value={doctor.previousBalance || ""}
+                      type="number"
+                      name="previousBalance"
+                      onChange={formSetter}
+                      borderWidth={1}
+                      borderColor="blackAlpha.400"
+                    />
+                  </Td>
+                </Tr>
+                {doctor?.previousBalance > 0 && (
+                  <Tr>
+                    <Th>
+                      <Heading as="h5" size="sm">
+                        Balance Description
+                      </Heading>
+                    </Th>
+                    <Td>
+                      <Input
+                        placeholder="Enter description"
+                        value={doctor.balanceDescription || ""}
+                        name="balanceDescription"
+                        onChange={formSetter}
+                        borderWidth={1}
+                        borderColor="blackAlpha.400"
+                        required={true}
+                      />
+                    </Td>
+                  </Tr>
+                )}
+                <Tr>
                   <Td verticalAlign="top">
                     <WorkSelector
                       selectedWorkTypes={doctor.typeOfWorks.map((e) => e.title)}
