@@ -211,10 +211,10 @@ const Statement = () => {
                   {el?.particular}
                 </Td>
                 <Td borderColor="silver" borderWidth={1}>
-                  {el?.bill?.totalAmount && "₹ " + el?.bill?.totalAmount}
+                  {el?.bill?.totalAmount ? "₹ " + el?.bill?.totalAmount : "-"}
                 </Td>
                 <Td borderColor="silver" borderWidth={1}>
-                  {el?.payment?.amount && "₹ " + el?.payment?.amount}
+                  {el?.payment?.amount ? "₹ " + el?.payment?.amount : "-"}
                 </Td>
                 <Td borderColor="silver" borderWidth={1}>
                   ₹ {el?.balance}
