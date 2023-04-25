@@ -88,8 +88,6 @@ const AddPayment = () => {
         isClosable: true,
       });
     }
-
-    console.log(payment);
   };
 
   return (
