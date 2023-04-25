@@ -52,7 +52,7 @@ const AddPayment = () => {
 
     switch (payment.mode) {
       case "Online UPI": {
-        delete payment.chequeNumber;
+        delete payment.cheque;
         break;
       }
       case "Cheque": {
@@ -60,7 +60,7 @@ const AddPayment = () => {
         break;
       }
       case "Bank Transfer": {
-        delete payment.chequeNumber;
+        delete payment.cheque;
         delete payment.mobile;
         break;
       }
@@ -179,11 +179,11 @@ const AddPayment = () => {
                   <Th fontSize={15}>Enter Cheque number</Th>
                   <Td>
                     <Input
-                      value={payment?.chequeNumber || ""}
+                      value={payment?.cheque || ""}
                       placeholder="Enter cheque number"
                       onChange={(e) =>
                         setPayment((prev) => {
-                          return { ...prev, chequeNumber: e.target.value };
+                          return { ...prev, cheque: e.target.value };
                         })
                       }
                       required={true}
