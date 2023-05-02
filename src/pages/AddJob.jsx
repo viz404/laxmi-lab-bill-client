@@ -63,10 +63,30 @@ const AddJob = () => {
         setJob(jobObj);
         setWorks([...works]);
         setDoctor(doctor);
+      })
+      .catch((error) => {
+        toast({
+          title: "Error",
+          description: error.message,
+          position: "top",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
     } else if (doctorId) {
       fetchDoctorById(doctorId).then(({ data: { response } }) => {
         setDoctor({ ...response });
+      })
+      .catch((error) => {
+        toast({
+          title: "Error",
+          description: error.message,
+          position: "top",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
     }
   }, [doctorId, jobId]);
