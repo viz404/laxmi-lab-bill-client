@@ -73,7 +73,7 @@ const Doctors = () => {
         </Text>
         <Button
           colorScheme="blue"
-          isDisabled={Math.ceil(Number(total) / 20)}
+          isDisabled={page == Math.ceil(Number(total) / 20)}
           onClick={() => setPage((prev) => prev + 1)}
         >
           Next
