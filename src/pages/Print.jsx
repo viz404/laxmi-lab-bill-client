@@ -143,22 +143,22 @@ const Print = () => {
           <Table marginTop={5} borderWidth={1} borderColor="grey">
             <Thead>
               <Tr>
-                <Th borderWidth={1} borderColor="grey">
+                <Th borderColor="grey" borderRightWidth={1}>
                   <Heading as="h6" size="xs" color="black">
                     Date
                   </Heading>
                 </Th>
-                <Th borderWidth={1} borderColor="grey">
+                <Th borderColor="grey" borderRightWidth={1}>
                   <Heading as="h6" size="xs" color="black">
                     Job No
                   </Heading>
                 </Th>
-                <Th borderWidth={1} borderColor="grey">
+                <Th borderColor="grey" borderRightWidth={1}>
                   <Heading as="h6" size="xs" color="black">
                     Patient Name
                   </Heading>
                 </Th>
-                <Th borderWidth={1} borderColor="grey">
+                <Th borderColor="grey" borderRightWidth={1}>
                   <Heading as="h6" size="xs" color="black">
                     Description
                   </Heading>
