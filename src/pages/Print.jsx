@@ -140,30 +140,30 @@ const Print = () => {
           </Flex>
         </Flex>
         <Box>
-          <Table marginTop={5} borderWidth={1} borderColor="black">
+          <Table marginTop={5} borderWidth={1} borderColor="grey">
             <Thead>
               <Tr>
-                <Th borderWidth={1} borderColor="black">
+                <Th borderWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs" color="black">
                     Date
                   </Heading>
                 </Th>
-                <Th borderWidth={1} borderColor="black">
+                <Th borderWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs" color="black">
                     Job No
                   </Heading>
                 </Th>
-                <Th borderWidth={1} borderColor="black">
+                <Th borderWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs" color="black">
                     Patient Name
                   </Heading>
                 </Th>
-                <Th borderWidth={1} borderColor="black">
+                <Th borderWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs" color="black">
                     Description
                   </Heading>
                 </Th>
-                <Th borderColor="black">
+                <Th borderColor="grey">
                   <Heading as="h6" size="xs" color="black">
                     Amount
                   </Heading>
@@ -173,35 +173,27 @@ const Print = () => {
             <Tbody>
               {bill?.jobs?.map((el, index) => (
                 <Tr key={index}>
-                  <Td borderWidth={1} borderColor="black">
-                    <Text fontSize="sm" color="black">
-                      {trimDate(el.date)}
-                    </Text>
+                  <Td borderWidth={1} borderColor="grey">
+                    <Text fontSize="sm">{trimDate(el.date)}</Text>
                   </Td>
-                  <Td borderWidth={1} borderColor="black">
-                    <Text fontSize="sm" color="black">
-                      {el.jobNumber}
-                    </Text>
+                  <Td borderWidth={1} borderColor="grey">
+                    <Text fontSize="sm">{el.jobNumber}</Text>
                   </Td>
-                  <Td borderWidth={1} borderColor="black">
-                    <Text fontSize="sm" color="black">
-                      {el.patientName}
-                    </Text>
+                  <Td borderWidth={1} borderColor="grey">
+                    <Text fontSize="sm">{el.patientName}</Text>
                   </Td>
-                  <Td borderWidth={1} borderColor="black">
+                  <Td borderWidth={1} borderColor="grey">
                     <Flex direction="column" gap={3}>
                       {el.works.map((ele) => (
                         <Flex justifyContent="space-between" key={ele.title}>
-                          <Text fontSize="sm" color="black">
-                            {ele.title}
-                          </Text>
+                          <Text fontSize="sm">{ele.title}</Text>
                           <Table width="fit-content">
                             <Tbody>
                               <Tr>
                                 <Td
                                   padding={0}
                                   borderRightWidth="thin"
-                                  borderColor="black"
+                                  borderColor="grey"
                                   paddingRight={1}
                                 >
                                   <Text fontSize="sm">
@@ -211,7 +203,7 @@ const Print = () => {
                                 <Td
                                   padding={0}
                                   borderBottomWidth="thin"
-                                  borderColor="black"
+                                  borderColor="grey"
                                   paddingLeft={1}
                                 >
                                   <Text fontSize="sm">
@@ -223,7 +215,7 @@ const Print = () => {
                                 <Td
                                   padding={0}
                                   borderRightWidth="thin"
-                                  borderColor="black"
+                                  borderColor="grey"
                                   borderBottomWidth={0}
                                   paddingRight={1}
                                 >
@@ -247,19 +239,24 @@ const Print = () => {
                       ))}
                     </Flex>
                   </Td>
-                  <Td borderColor="black">
+                  <Td borderColor="grey">
                     <Text fontSize="sm">₹ {el.price}</Text>
                   </Td>
                 </Tr>
               ))}
               <Tr>
-                <Td borderWidth={1} borderRightWidth={0} borderColor="black">
+                <Td
+                  borderWidth={1}
+                  borderRightWidth={0}
+                  borderColor="grey"
+                  color="black"
+                >
                   Total
                 </Td>
                 <Td
                   colSpan={5}
                   borderBottomWidth={1}
-                  borderColor="black"
+                  borderColor="grey"
                   textAlign="right"
                   fontWeight="bold"
                 >
@@ -271,14 +268,15 @@ const Print = () => {
                   colSpan={2}
                   borderWidth={1}
                   borderRightWidth={0}
-                  borderColor="black"
+                  borderColor="grey"
+                  color="black"
                 >
                   Total in Words
                 </Td>
                 <Td
                   colSpan={4}
                   borderBottomWidth={1}
-                  borderColor="black"
+                  borderColor="grey"
                   textAlign="right"
                   fontWeight="bold"
                 >
@@ -291,14 +289,14 @@ const Print = () => {
                     colSpan={2}
                     borderWidth={1}
                     borderRightWidth={0}
-                    borderColor="black"
+                    borderColor="grey"
                   >
                     Previous Balance
                   </Td>
                   <Td
                     colSpan={4}
                     borderBottomWidth={1}
-                    borderColor="black"
+                    borderColor="grey"
                     textAlign="right"
                     fontWeight="bold"
                   >
@@ -364,7 +362,7 @@ const Print = () => {
             width="250px"
             height="150px"
             borderRadius={10}
-            borderColor="black"
+            borderColor="grey"
             alignItems="end"
             justifyContent="center"
             padding={1}
@@ -379,7 +377,7 @@ const Print = () => {
             width="250px"
             height="150px"
             borderRadius={10}
-            borderColor="black"
+            borderColor="grey"
             alignItems="end"
             justifyContent="center"
             padding={1}
