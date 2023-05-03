@@ -143,28 +143,28 @@ const Print = () => {
           <Table marginTop={5} borderWidth={1} borderColor="black">
             <Thead>
               <Tr>
-                <Th borderRightWidth={1} borderColor="black">
-                  <Heading as="h6" size="xs">
+                <Th borderWidth={1} borderColor="black">
+                  <Heading as="h6" size="xs" color="black">
                     Date
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1} borderColor="black">
-                  <Heading as="h6" size="xs">
+                <Th borderWidth={1} borderColor="black">
+                  <Heading as="h6" size="xs" color="black">
                     Job No
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1} borderColor="black">
-                  <Heading as="h6" size="xs">
+                <Th borderWidth={1} borderColor="black">
+                  <Heading as="h6" size="xs" color="black">
                     Patient Name
                   </Heading>
                 </Th>
-                <Th borderRightWidth={1} borderColor="black">
-                  <Heading as="h6" size="xs">
+                <Th borderWidth={1} borderColor="black">
+                  <Heading as="h6" size="xs" color="black">
                     Description
                   </Heading>
                 </Th>
                 <Th borderColor="black">
-                  <Heading as="h6" size="xs">
+                  <Heading as="h6" size="xs" color="black">
                     Amount
                   </Heading>
                 </Th>
@@ -173,26 +173,34 @@ const Print = () => {
             <Tbody>
               {bill?.jobs?.map((el, index) => (
                 <Tr key={index}>
-                  <Td borderRightWidth={1} borderColor="black">
-                    <Text fontSize="sm">{trimDate(el.date)}</Text>
+                  <Td borderWidth={1} borderColor="black">
+                    <Text fontSize="sm" color="black">
+                      {trimDate(el.date)}
+                    </Text>
                   </Td>
-                  <Td borderRightWidth={1} borderColor="black">
-                    <Text fontSize="sm">{el.jobNumber}</Text>
+                  <Td borderWidth={1} borderColor="black">
+                    <Text fontSize="sm" color="black">
+                      {el.jobNumber}
+                    </Text>
                   </Td>
-                  <Td borderRightWidth={1} borderColor="black">
-                    <Text fontSize="sm">{el.patientName}</Text>
+                  <Td borderWidth={1} borderColor="black">
+                    <Text fontSize="sm" color="black">
+                      {el.patientName}
+                    </Text>
                   </Td>
-                  <Td borderRightWidth={1} borderColor="black">
+                  <Td borderWidth={1} borderColor="black">
                     <Flex direction="column" gap={3}>
                       {el.works.map((ele) => (
                         <Flex justifyContent="space-between" key={ele.title}>
-                          <Text fontSize="sm">{ele.title}</Text>
+                          <Text fontSize="sm" color="black">
+                            {ele.title}
+                          </Text>
                           <Table width="fit-content">
                             <Tbody>
                               <Tr>
                                 <Td
                                   padding={0}
-                                  borderRightWidth={1}
+                                  borderRightWidth="thin"
                                   borderColor="black"
                                   paddingRight={1}
                                 >
@@ -202,7 +210,7 @@ const Print = () => {
                                 </Td>
                                 <Td
                                   padding={0}
-                                  borderBottomWidth={1}
+                                  borderBottomWidth="thin"
                                   borderColor="black"
                                   paddingLeft={1}
                                 >
@@ -214,7 +222,7 @@ const Print = () => {
                               <Tr>
                                 <Td
                                   padding={0}
-                                  borderRightWidth={1}
+                                  borderRightWidth="thin"
                                   borderColor="black"
                                   borderBottomWidth={0}
                                   paddingRight={1}
