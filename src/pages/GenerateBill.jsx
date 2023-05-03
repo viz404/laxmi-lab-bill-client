@@ -260,11 +260,6 @@ const GenerateBill = () => {
             </Th>
             <Th borderRightWidth={1}>
               <Heading as="h5" size="sm">
-                Type of work
-              </Heading>
-            </Th>
-            <Th borderRightWidth={1}>
-              <Heading as="h5" size="sm">
                 Description
               </Heading>
             </Th>
@@ -287,9 +282,6 @@ const GenerateBill = () => {
               <Td borderRightWidth={1}>{trimDate(el.date)}</Td>
               <Td borderRightWidth={1}>{el.jobNumber}</Td>
               <Td borderRightWidth={1}>{el.patientName}</Td>
-              <Td borderRightWidth={1}>
-                {el.works.map((e) => e.title).join(", ")}
-              </Td>
               <Td borderRightWidth={1}>
                 <Flex direction="column" gap={3}>
                   {el.works.map((ele) => (

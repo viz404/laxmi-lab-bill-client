@@ -160,11 +160,6 @@ const Print = () => {
                 </Th>
                 <Th borderRightWidth={1} borderColor="grey">
                   <Heading as="h6" size="xs">
-                    Type of work
-                  </Heading>
-                </Th>
-                <Th borderRightWidth={1} borderColor="grey">
-                  <Heading as="h6" size="xs">
                     Description
                   </Heading>
                 </Th>
@@ -186,11 +181,6 @@ const Print = () => {
                   </Td>
                   <Td borderRightWidth={1} borderColor="grey">
                     <Text fontSize="sm">{el.patientName}</Text>
-                  </Td>
-                  <Td borderRightWidth={1} borderColor="grey">
-                    <Text fontSize="sm">
-                      {el.works.map((e) => e.title).join(", ")}
-                    </Text>
                   </Td>
                   <Td borderRightWidth={1} borderColor="grey">
                     <Flex direction="column" gap={3}>
