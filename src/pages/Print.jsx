@@ -284,25 +284,47 @@ const Print = () => {
                 </Td>
               </Tr>
               {bill?.previousBalance > 0 && (
-                <Tr>
-                  <Td
-                    colSpan={2}
-                    borderWidth={1}
-                    borderRightWidth={0}
-                    borderColor="grey"
-                  >
-                    Previous Balance
-                  </Td>
-                  <Td
-                    colSpan={4}
-                    borderBottomWidth={1}
-                    borderColor="grey"
-                    textAlign="right"
-                    fontWeight="bold"
-                  >
-                    ₹ {bill.previousBalance}
-                  </Td>
-                </Tr>
+                <>
+                  <Tr>
+                    <Td
+                      colSpan={2}
+                      borderWidth={1}
+                      borderRightWidth={0}
+                      borderColor="grey"
+                    >
+                      Previous Balance
+                    </Td>
+                    <Td
+                      colSpan={4}
+                      borderBottomWidth={1}
+                      borderColor="grey"
+                      textAlign="right"
+                      fontWeight="bold"
+                    >
+                      ₹ {bill.previousBalance}
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td
+                      colSpan={2}
+                      borderWidth={1}
+                      borderRightWidth={0}
+                      borderColor="grey"
+                    >
+                      Total with previous
+                    </Td>
+                    <Td
+                      colSpan={4}
+                      borderBottomWidth={1}
+                      borderColor="grey"
+                      textAlign="right"
+                      fontWeight="bold"
+                    >
+                      ₹{" "}
+                      {Number(bill.previousBalance) + Number(bill.totalAmount)}
+                    </Td>
+                  </Tr>
+                </>
               )}
             </Tbody>
           </Table>
