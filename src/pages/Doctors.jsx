@@ -62,7 +62,9 @@ export default function Doctors() {
               {doctors.map((element, index) => (
                 <tr key={element.id}>
                   <td className="p-4 border-r">{index + 1 + (page - 1) * 0}</td>
-                  <td className="p-4 border-r">{element.name}</td>
+                  <td className="p-4 border-r">
+                    <Link to={`/doctors/${element.id}`}>{element.name}</Link>
+                  </td>
                   <td className="p-4 border-r">{element.phone}</td>
                   <td className="p-4 border-r">
                     {"₹ "} {element.accountDetails.balance}

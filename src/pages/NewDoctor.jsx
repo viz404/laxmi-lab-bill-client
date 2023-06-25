@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  fetchWorks,
-  addNewWork,
-  deleteWork,
-  addNewDoctor,
-} from "../apiHelpers";
+import * as API from "../apiHelpers";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 let defaultDoctor = {
   name: "",
@@ -18,12 +13,18 @@ export default function NewDoctor() {
   const [works, setWorks] = useState([]);
   const [newWork, setNewWork] = useState("");
 
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchWorks()
+    API.fetchWorks()
       .then((response) => setWorks(response.data))
       .catch((error) => toast.error(error.message));
+    if (id) {
+      API.fetchDoctorById(id)
+        .then((response) => setDoctor(response.data))
+        .catch((error) => toast.error(error.message));
+    }
   }, []);
 
   const handleFormInput = (event) => {
@@ -95,7 +96,7 @@ export default function NewDoctor() {
     try {
       if (newWork == "") return;
 
-      const response = await addNewWork(newWork);
+      const response = await API.addNewWork(newWork);
 
       works.push(response.data);
       setWorks([...works]);
@@ -109,7 +110,7 @@ export default function NewDoctor() {
     try {
       if (id == "") return;
 
-      await deleteWork(id);
+      await API.deleteWork(id);
 
       let filteredWorks = works.filter((element) => element.id != id);
       setWorks([...filteredWorks]);
@@ -132,8 +133,13 @@ export default function NewDoctor() {
         throw new Error("Please select a name");
       }
 
-      await addNewDoctor(doctor);
-      toast.success(`Doctor ${doctor.name} was added successfully`);
+      if (id) {
+        await API.updateDoctor(id, doctor);
+        toast.success(`Doctor ${doctor.name} was updated successfully`);
+      } else {
+        await API.addNewDoctor(doctor);
+        toast.success(`Doctor ${doctor.name} was added successfully`);
+      }
       navigate("/doctors");
     } catch (error) {
       toast.error(error.message);
