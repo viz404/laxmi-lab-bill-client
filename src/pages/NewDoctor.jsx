@@ -154,6 +154,18 @@ export default function NewDoctor() {
     setNewWork("");
   };
 
+  const handleDeleteDoctor = async () => {
+    try {
+      if (id) {
+        await API.deleteDoctor(id);
+        toast.success(`Doctor ${doctor.name} was deleted successfully`);
+        navigate("/doctors");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <main className="h-[95vh]">
       <div className=" flex items-start gap-3 px-4 mt-4">
@@ -313,6 +325,14 @@ export default function NewDoctor() {
             >
               Submit
             </button>
+            {id && (
+              <button
+                className="bg-red-600 text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400"
+                onClick={handleDeleteDoctor}
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

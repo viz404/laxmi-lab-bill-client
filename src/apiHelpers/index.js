@@ -5,3 +5,4 @@ export { default as deleteWork } from "./deleteWork";
 export { default as addNewDoctor } from "./addNewDoctor";
 export { default as fetchDoctorById } from "./fetchDoctorById";
 export { default as updateDoctor } from "./updateDoctor";
+export { default as deleteDoctor } from "./deleteDoctor";
