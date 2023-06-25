@@ -5,15 +5,19 @@ export default function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const prefersDarkMode = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setIsDarkMode(prefersDarkMode);
+    const localTheme = localStorage.getItem("theme");
+
+    setIsDarkMode(localTheme == "dark");
+
+    if (localTheme == "dark") {
+      document.documentElement.classList.add("dark");
+    }
   }, []);
 
   const handleDarkModeToggle = () => {
     setIsDarkMode((prevMode) => !prevMode);
     document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDarkMode ? "light" : "dark");
   };
 
   return (
