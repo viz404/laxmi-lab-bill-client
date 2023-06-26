@@ -67,19 +67,13 @@ export default function Doctors() {
                   </td>
                   <td className="p-4 border-r">{element.phone}</td>
                   <td className="p-4 border-r">
-                    {"₹ "} {element.accountDetails.balance}
+                    {`₹ ${element.account_details.balance}`}
                   </td>
                   <td className="p-4 border-r">
-                    {"₹ "}
-                    {element.accountDetails.previous_bill
-                      ? element.accountDetails.previous_bill.amount
-                      : 0}
+                    {`₹ ${element.account_details.previous_bill.amount}`}
                   </td>
                   <td className="p-4">
-                    {"₹ "}
-                    {element.accountDetails.previous_payment
-                      ? element.accountDetails.previous_payment.amount
-                      : 0}
+                    {`₹ ${element.account_details.previous_payment.amount}`}
                   </td>
                 </tr>
               ))}
