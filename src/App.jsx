@@ -16,6 +16,8 @@ export default function App() {
           <Route path="/doctors" Component={pages.Doctors} />
           <Route path="/doctors/new" Component={pages.NewDoctor} />
           <Route path="/doctors/:id" Component={pages.NewDoctor} />
+          <Route path="/account" Component={pages.Account} />
+          <Route path="/account/:id" Component={pages.Account} />
         </Routes>
       </BrowserRouter>
       <ToastContainer theme="colored" />

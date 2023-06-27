@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as API from "../apiHelpers";
+import { workApis, doctorApis } from "../apiHelpers";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -17,11 +17,13 @@ export default function NewDoctor() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.fetchWorks()
+    workApis
+      .fetchWorks()
       .then((response) => setWorks(response.data))
       .catch((error) => toast.error(error.message));
     if (id) {
-      API.fetchDoctorById(id)
+      doctorApis
+        .fetchDoctorById(id)
         .then((response) => setDoctor(response.data))
         .catch((error) => toast.error(error.message));
     }
@@ -96,7 +98,7 @@ export default function NewDoctor() {
     try {
       if (newWork == "") return;
 
-      const response = await API.addNewWork(newWork);
+      const response = await workApis.addNewWork(newWork);
 
       works.push(response.data);
       setWorks([...works]);
@@ -110,7 +112,7 @@ export default function NewDoctor() {
     try {
       if (id == "") return;
 
-      await API.deleteWork(id);
+      await workApis.deleteWork(id);
 
       let filteredWorks = works.filter((element) => element.id != id);
       setWorks([...filteredWorks]);
@@ -134,10 +136,10 @@ export default function NewDoctor() {
       }
 
       if (id) {
-        await API.updateDoctor(id, doctor);
+        await doctorApis.updateDoctor(id, doctor);
         toast.success(`Doctor ${doctor.name} was updated successfully`);
       } else {
-        await API.addNewDoctor(doctor);
+        await doctorApis.addNewDoctor(doctor);
         toast.success(`Doctor ${doctor.name} was added successfully`);
       }
       navigate("/doctors");
@@ -157,7 +159,7 @@ export default function NewDoctor() {
   const handleDeleteDoctor = async () => {
     try {
       if (id) {
-        await API.deleteDoctor(id);
+        await doctorApis.deleteDoctor(id);
         toast.success(`Doctor ${doctor.name} was deleted successfully`);
         navigate("/doctors");
       }
@@ -273,7 +275,7 @@ export default function NewDoctor() {
                     className={index < doctor.works.length ? "border-b" : ""}
                   >
                     <th className="p-4 border-r text-lg">{element.title}</th>
-                    <td className="px-2 flex gap-2">
+                    <td className="flex gap-4">
                       <select
                         className="text-text-light dark:bg-gray-700 dark:text-white px-2 h-14"
                         name={element.title}
@@ -287,7 +289,7 @@ export default function NewDoctor() {
                       </select>
                       <input
                         type="number"
-                        className="border text-text-light dark:bg-gray-700 dark:text-white h-14"
+                        className="border text-text-light dark:bg-gray-700 dark:text-white h-14 px-2"
                         name={element.title}
                         onInput={handleWorkPrice}
                         value={element.price || ""}
@@ -323,7 +325,7 @@ export default function NewDoctor() {
               className="bg-primary text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400"
               onClick={handleSubmit}
             >
-              Submit
+              {id ? "Update" : "Submit"}
             </button>
             {id && (
               <button

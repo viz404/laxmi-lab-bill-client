@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "../components/common";
-import { fetchDoctors } from "../apiHelpers";
+import { doctorApis } from "../apiHelpers";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,8 @@ export default function Doctors() {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    fetchDoctors({ page, name })
+    doctorApis
+      .fetchDoctors({ page, name })
       .then((data) => {
         setDoctors(data.data);
         setTotalPages(data.totalPages);

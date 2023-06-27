@@ -26,6 +26,7 @@ export default function Navbar() {
       <div className="flex gap-4 text-lg">
         <Link to="/">Home</Link>
         <Link to="/doctors">Doctors</Link>
+        <Link to="/account">Account</Link>
         <button onClick={handleDarkModeToggle} className="text-lg">
           {isDarkMode ? "🌙" : "☀️"}
         </button>

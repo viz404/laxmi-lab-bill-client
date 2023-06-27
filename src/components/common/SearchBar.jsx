@@ -22,6 +22,7 @@ export default function SearchBar({ placeholder, onClick }) {
         ref={inputRef}
         placeholder={placeholder || "Search here"}
         onKeyDown={handleKeyDown}
+        autoFocus
       />
       <button
         className="bg-primary text-text-dark text-lg px-4"

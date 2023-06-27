@@ -1,12 +1,10 @@
 import { Keys } from "../config";
 
-export default async function deleteDoctor(id) {
+export default async function fetchAccount(doctorId) {
   try {
-    const repsonse = await fetch(`${Keys.baseUrl}/doctors/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(`${Keys.baseUrl}/doctors/${doctorId}`);
 
-    const data = await repsonse.json();
+    const data = await response.json();
 
     if (data.status == false) {
       throw new Error(data.error);
