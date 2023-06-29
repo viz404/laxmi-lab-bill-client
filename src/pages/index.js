@@ -1,11 +1,5 @@
-import Home from "./Home";
-import Doctors from "./Doctors";
-import NewDoctor from "./NewDoctor";
-import Account from "./Account";
-
-export default {
-  Home,
-  Doctors,
-  NewDoctor,
-  Account,
-};
+export { default as Home } from "./Home";
+export { default as Doctors } from "./Doctors";
+export { default as EditDoctor } from "./EditDoctor";
+export { default as Account } from "./Account";
+export { default as EditJob } from "./EditJob";

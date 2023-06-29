@@ -6,9 +6,9 @@ export default function Account() {
   const { id } = useParams();
 
   if (!id) {
-    return <DoctorSelector navigateTo="/account/" />;
+    return <DoctorSelector navigateTo="/account/x" replace="x" />;
   }
-  
+
   return (
     <main>
       <p>hi</p>

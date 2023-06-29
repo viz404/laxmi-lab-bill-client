@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { workApis, doctorApis } from "../apiHelpers";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,25 +8,30 @@ let defaultDoctor = {
   works: [],
 };
 
-export default function NewDoctor() {
+export default function EditDoctor() {
   const [doctor, setDoctor] = useState(defaultDoctor);
   const [works, setWorks] = useState([]);
-  const [newWork, setNewWork] = useState("");
 
-  const { id } = useParams();
+  const { doctorId } = useParams();
   const navigate = useNavigate();
+  const newWorkRef = useRef();
 
   useEffect(() => {
     workApis
       .fetchWorks()
       .then((response) => setWorks(response.data))
       .catch((error) => toast.error(error.message));
-    if (id) {
+    if (doctorId) {
       doctorApis
-        .fetchDoctorById(id)
+        .fetchDoctorById(doctorId)
         .then((response) => setDoctor(response.data))
         .catch((error) => toast.error(error.message));
     }
+
+    return () => {
+      setDoctor({ ...defaultDoctor });
+      setWorks([]);
+    };
   }, []);
 
   const handleFormInput = (event) => {
@@ -96,15 +101,17 @@ export default function NewDoctor() {
 
   const handleNewWork = async () => {
     try {
-      if (newWork == "") return;
+      const work = newWorkRef.current.value;
+      if (work == "") return;
 
-      const response = await workApis.addNewWork(newWork);
+      const response = await workApis.addNewWork(work);
 
       works.push(response.data);
       setWorks([...works]);
-      setNewWork("");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      newWorkRef.current.value = "";
     }
   };
 
@@ -135,8 +142,8 @@ export default function NewDoctor() {
         throw new Error("Please select a name");
       }
 
-      if (id) {
-        await doctorApis.updateDoctor(id, doctor);
+      if (doctorId) {
+        await doctorApis.updateDoctor(doctorId, doctor);
         toast.success(`Doctor ${doctor.name} was updated successfully`);
       } else {
         await doctorApis.addNewDoctor(doctor);
@@ -153,13 +160,12 @@ export default function NewDoctor() {
       name: "",
       works: [],
     });
-    setNewWork("");
   };
 
   const handleDeleteDoctor = async () => {
     try {
-      if (id) {
-        await doctorApis.deleteDoctor(id);
+      if (doctorId) {
+        await doctorApis.deleteDoctor(doctorId);
         toast.success(`Doctor ${doctor.name} was deleted successfully`);
         navigate("/doctors");
       }
@@ -168,8 +174,14 @@ export default function NewDoctor() {
     }
   };
 
+  const handleWorkKeyDown = (event) => {
+    if (event.key == "Enter") {
+      handleNewWork();
+    }
+  };
+
   return (
-    <main className="h-[95vh]">
+    <main className="min-h-[95vh]">
       <div className=" flex items-start gap-3 px-4 mt-4">
         <div className="w-[30%] border-2 border-slate-300 rounded-xl">
           <p className="text-lg font-bold text-center border-b p-4">Works</p>
@@ -200,8 +212,8 @@ export default function NewDoctor() {
               type="text"
               placeholder="Add new work"
               className="dark:bg-gray-700 dark:text-white text-lg border rounded p-1"
-              onChange={(event) => setNewWork(event.target.value)}
-              value={newWork}
+              ref={newWorkRef}
+              onKeyDown={handleWorkKeyDown}
             />
             <button
               className="bg-primary text-white px-3 py-1 rounded-lg"
@@ -325,9 +337,9 @@ export default function NewDoctor() {
               className="bg-primary text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400"
               onClick={handleSubmit}
             >
-              {id ? "Update" : "Submit"}
+              {doctorId ? "Update" : "Submit"}
             </button>
-            {id && (
+            {doctorId && (
               <button
                 className="bg-red-600 text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400"
                 onClick={handleDeleteDoctor}
