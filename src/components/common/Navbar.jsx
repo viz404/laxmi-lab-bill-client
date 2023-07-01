@@ -24,7 +24,7 @@ export default function Navbar() {
     <nav className="flex justify-between p-2 items-center text-text">
       <p className="text-2xl font-bold">Shree Laxmi Dental Lab</p>
       <div className="flex gap-4 text-lg">
-        <Link to="/">Home</Link>
+        <Link to="/">Jobs</Link>
         <Link to="/doctors">Doctors</Link>
         <Link to="/account">Account</Link>
         <button onClick={handleDarkModeToggle} className="text-lg">

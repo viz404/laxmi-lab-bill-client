@@ -12,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" Component={pages.Home} />
+          <Route path="/" Component={pages.Jobs} />
           <Route path="/doctors" Component={pages.Doctors} />
           <Route path="/doctors/new" Component={pages.EditDoctor} />
           <Route path="/doctors/:doctorId" Component={pages.EditDoctor} />

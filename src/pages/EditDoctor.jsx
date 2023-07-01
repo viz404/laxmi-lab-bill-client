@@ -29,7 +29,7 @@ export default function EditDoctor() {
     }
 
     return () => {
-      setDoctor({ ...defaultDoctor });
+      setDoctor({ ...defaultDoctor, works: [] });
       setWorks([]);
     };
   }, []);

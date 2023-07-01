@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DoctorSelector } from "../components/common";
 import { useEffect, useState } from "react";
-import { doctorApis } from "../apiHelpers";
+import { doctorApis, jobApis } from "../apiHelpers";
 import { toast } from "react-toastify";
 
 const defaultDoctor = {
@@ -22,13 +22,32 @@ export default function EditJob() {
   const [job, setJob] = useState(defaultJob);
 
   const { doctorId, jobId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    doctorApis
-      .fetchDoctorById(doctorId)
-      .then((response) => setDoctor(response.data))
-      .catch((error) => toast.error(error.message));
-  }, []);
+    if (doctorId) {
+      doctorApis
+        .fetchDoctorById(doctorId)
+        .then((response) => setDoctor(response.data))
+        .catch((error) => toast.error(error.message));
+    }
+
+    if (jobId) {
+      jobApis
+        .fetchJob(jobId)
+        .then((response) => {
+          let updatedDate = response.data.date.split("T")[0];
+          response.data.date = updatedDate;
+          setJob(response.data);
+        })
+        .catch((error) => toast.error(error.message));
+    }
+
+    return () => {
+      setDoctor({ ...defaultDoctor, works: [] });
+      setJob({ ...defaultJob, works: [] });
+    };
+  }, [doctorId, jobId]);
 
   const handleFormInput = (event) => {
     const name = event.target.name;
@@ -62,11 +81,35 @@ export default function EditJob() {
     setJob({ ...job });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       if (job.works.length == 0) {
         throw new Error("Please select a work");
       }
+
+      if (!job.date) {
+        throw new Error("Please select date");
+      }
+
+      if (!job.job_number) {
+        throw new Error("Please select job number");
+      }
+
+      job.doctor_id = doctorId;
+      job.doctor_name = doctor.name;
+
+      if (jobId) {
+        await jobApis.updateJob(job, jobId);
+      } else {
+        await jobApis.addNewJob(job);
+      }
+
+      toast.success(
+        `Job number ${job.job_number} was ${
+          jobId ? "updated" : "added"
+        } successfully`
+      );
+      navigate("/");
     } catch (error) {
       toast.error(error.message);
     }
@@ -217,23 +260,23 @@ export default function EditJob() {
                       <td>
                         <input
                           type="text"
-                          name="bottom_left"
+                          name="lower_left"
                           data-index={index}
                           onChange={handleWorkInput}
-                          value={element.bottom_left ?? ""}
+                          value={element.lower_left ?? ""}
                           className="dark:bg-gray-700 dark:text-white border border-slate-300 outline-none p-2 w-full"
-                          placeholder="Bottom Left"
+                          placeholder="lower Left"
                         />
                       </td>
                       <td>
                         <input
                           type="text"
-                          name="bottom_right"
+                          name="lower_right"
                           data-index={index}
                           onChange={handleWorkInput}
-                          value={element.bottom_right ?? ""}
+                          value={element.lower_right ?? ""}
                           className="dark:bg-gray-700 dark:text-white border border-slate-300 outline-none p-2 w-full"
-                          placeholder="Bottom Right"
+                          placeholder="lower Right"
                         />
                       </td>
                     </tr>

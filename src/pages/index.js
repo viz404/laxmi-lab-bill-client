@@ -1,4 +1,4 @@
-export { default as Home } from "./Home";
+export { default as Jobs } from "./Jobs";
 export { default as Doctors } from "./Doctors";
 export { default as EditDoctor } from "./EditDoctor";
 export { default as Account } from "./Account";
