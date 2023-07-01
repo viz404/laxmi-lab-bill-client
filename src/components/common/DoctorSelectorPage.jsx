@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { doctorApis } from "../../apiHelpers";
 import { toast } from "react-toastify";
 
-export default function DoctorSelector({ navigateTo, replace }) {
+export default function DoctorSelectorPage({ navigateTo, replace }) {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -47,7 +47,6 @@ export default function DoctorSelector({ navigateTo, replace }) {
                     type="radio"
                     name="doctor"
                     value={element.id}
-                    key={element.id}
                     className="w-5"
                     required
                   />

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { DoctorSelector } from "../components/common";
+import { DoctorSelectorPage } from "../components/common";
 import { useEffect, useState } from "react";
 import { doctorApis, jobApis } from "../apiHelpers";
 import { toast } from "react-toastify";
@@ -120,7 +120,7 @@ export default function EditJob() {
   };
 
   if (!doctorId) {
-    return <DoctorSelector navigateTo="/doctors/x/job" replace="x" />;
+    return <DoctorSelectorPage navigateTo="/doctors/x/job" replace="x" />;
   }
 
   return (

@@ -68,8 +68,27 @@ async function updateJob(job, id) {
   }
 }
 
+async function fetchJobs({ page = 1, limit = 20, doctor_name = "", sort = "" }) {
+  try {
+    const response = await fetch(
+      `${Keys.baseUrl}/jobs?page=${page}&limit=${limit}&doctor_name=${doctor_name}&sort=${sort}`
+    );
+
+    const data = await response.json();
+
+    if (data.status == false) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export default {
   addNewJob,
   fetchJob,
   updateJob,
+  fetchJobs,
 };
