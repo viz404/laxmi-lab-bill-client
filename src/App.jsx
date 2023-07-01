@@ -21,9 +21,11 @@ export default function App() {
             path="/doctors/:doctorId/job/:jobId"
             Component={pages.EditJob}
           />
+          <Route path="/doctors/:doctorId/bill" Component={pages.EditBill} />
           <Route path="/jobs/new" Component={pages.EditJob} />
           <Route path="/account" Component={pages.Account} />
           <Route path="/account/:id" Component={pages.Account} />
+          <Route path="/bills/new" Component={pages.EditBill} />
         </Routes>
       </BrowserRouter>
       <ToastContainer theme="colored" />
