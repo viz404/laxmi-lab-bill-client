@@ -28,6 +28,15 @@ export default function App() {
           <Route path="/bills" Component={pages.Bills} />
           <Route path="/bills/new" Component={pages.EditBill} />
           <Route path="/bills/id/:billId" Component={pages.ViewBill} />
+          <Route path="/payments/new" Component={pages.EditPayment} />
+          <Route
+            path="/payments/doctors/:doctorId"
+            Component={pages.EditPayment}
+          />
+          <Route
+            path="/payments/doctors/:doctorId/payments/:paymentid"
+            Component={pages.EditPayment}
+          />
         </Routes>
       </BrowserRouter>
       <ToastContainer theme="colored" />

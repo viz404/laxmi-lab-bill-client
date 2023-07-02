@@ -6,3 +6,4 @@ export { default as EditJob } from "./EditJob";
 export { default as EditBill } from "./EditBill";
 export { default as ViewBill } from "./ViewBill";
 export { default as Bills } from "./Bills";
+export { default as EditPayment } from "./EditPayment";

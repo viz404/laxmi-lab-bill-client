@@ -18,7 +18,12 @@ export default function ViewBill(req, res) {
   return (
     <main className="min-h-[95vh]">
       <div>
-        <button>Print</button>
+      <button
+          className="bg-yellow-500 text-text-dark rounded-lg px-4 py-2 m-4"
+          onClick={() => {window.print()}}
+        >
+          Print
+        </button>
       </div>
       <div className="px-4" id="section-to-print">
         <div className="flex gap-4">
@@ -128,6 +133,18 @@ export default function ViewBill(req, res) {
               <p>Rs {"(in words): "}</p>
               <p className="font-bold">{numberToWord(bill.amount)}</p>
             </div>
+            {bill.previous_balance > 0 && (
+              <>
+                <div className="flex justify-between px-2 border-t-2 border-black">
+                  <p>Previous Balance:</p>
+                  <p className="font-bold">₹ {bill.previous_balance}</p>
+                </div>
+                <div className="flex justify-between px-2 border-t-2 border-black">
+                  <p>Total Amount:</p>
+                  <p className="font-bold">₹ {bill.total_amount}</p>
+                </div>
+              </>
+            )}
           </div>
           <div className="mt-4 text-lg break-before-auto">
             <p className="font-bold">Payment details</p>
