@@ -68,10 +68,45 @@ async function updateJob(job, id) {
   }
 }
 
-async function fetchJobs({ page = 1, limit = 20, doctor_name = "", sort = "" }) {
+async function fetchJobs({
+  page = 1,
+  limit = 20,
+  doctor_name = "",
+  sort = "",
+}) {
   try {
     const response = await fetch(
       `${Keys.baseUrl}/jobs?page=${page}&limit=${limit}&doctor_name=${doctor_name}&sort=${sort}`
+    );
+
+    const data = await response.json();
+
+    if (data.status == false) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+async function fetchJobsWithPrice({ doctor_id, from_date, to_date }) {
+  try {
+    if (!doctor_id) {
+      throw new Error("no doctor_id received");
+    }
+
+    if (!from_date) {
+      throw new Error("no from_date received");
+    }
+
+    if (!to_date) {
+      throw new Error("no to_date received");
+    }
+
+    const response = await fetch(
+      `${Keys.baseUrl}/jobs/price/doctor/${doctor_id}?from_date=${from_date}&to_date=${to_date}`
     );
 
     const data = await response.json();
@@ -91,4 +126,5 @@ export default {
   fetchJob,
   updateJob,
   fetchJobs,
+  fetchJobsWithPrice,
 };

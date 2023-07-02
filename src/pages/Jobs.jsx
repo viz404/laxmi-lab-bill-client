@@ -107,7 +107,7 @@ export default function Jobs() {
                   <th className="p-5 border-b-2 border-r border-b-slate-400">
                     Job no
                   </th>
-                  <th className="p-5 border-b-2 border-b-slate-400">Work</th>
+                  <th className="p-5 border-b-2 border-b-slate-400">Works</th>
                 </tr>
               </thead>
               <tbody>
