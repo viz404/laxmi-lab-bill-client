@@ -26,6 +26,7 @@ export default function App() {
           <Route path="/account" Component={pages.Account} />
           <Route path="/account/:id" Component={pages.Account} />
           <Route path="/bills/new" Component={pages.EditBill} />
+          <Route path="/bills/id/:billId" Component={pages.ViewBill} />
         </Routes>
       </BrowserRouter>
       <ToastContainer theme="colored" />
