@@ -24,7 +24,8 @@ export default function App() {
           <Route path="/doctors/:doctorId/bill" Component={pages.EditBill} />
           <Route path="/jobs/new" Component={pages.EditJob} />
           <Route path="/account" Component={pages.Account} />
-          <Route path="/account/:id" Component={pages.Account} />
+          <Route path="/account/:doctorId" Component={pages.Account} />
+          <Route path="/bills" Component={pages.Bills} />
           <Route path="/bills/new" Component={pages.EditBill} />
           <Route path="/bills/id/:billId" Component={pages.ViewBill} />
         </Routes>

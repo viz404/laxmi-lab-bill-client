@@ -27,7 +27,7 @@ export default function Navbar() {
         <Link to="/">Jobs</Link>
         <Link to="/doctors">Doctors</Link>
         <Link to="/account">Account</Link>
-        <Link to="/bills/new">Bill</Link>
+        <Link to="/bills">Bill</Link>
         <button onClick={handleDarkModeToggle} className="text-lg">
           {isDarkMode ? "🌙" : "☀️"}
         </button>

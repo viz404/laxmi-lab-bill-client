@@ -56,7 +56,7 @@ async function fetchDoctorById(id) {
   }
 }
 
-async function fetchDoctors({ page = 1, limit = 10, name = "", sort = "" }) {
+async function fetchDoctors({ page = 1, limit = 20, name = "", sort = "" }) {
   try {
     const response = await fetch(
       `${Keys.baseUrl}/doctors?page=${page}&limit=${limit}&name=${name}&sort=${sort}`

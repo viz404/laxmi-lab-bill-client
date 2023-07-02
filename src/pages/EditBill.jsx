@@ -122,7 +122,7 @@ export default function EditBill() {
             <div className="flex gap-2">
               <p className="text-xl">From Date</p>
               <input
-                className="h-14 outline-none text-lg dark:bg-gray-700 dark:text-white"
+                className="h-14 outline-none text-lg dark:bg-gray-700 dark:text-white border"
                 type="date"
                 name="from_date"
                 onChange={handleDateSelect}
@@ -132,7 +132,7 @@ export default function EditBill() {
             <div className="flex gap-2">
               <p className="text-xl">To Date</p>
               <input
-                className="h-14 outline-none text-lg dark:bg-gray-700 dark:text-white"
+                className="h-14 outline-none text-lg dark:bg-gray-700 dark:text-white border"
                 type="date"
                 name="to_date"
                 onChange={handleDateSelect}
