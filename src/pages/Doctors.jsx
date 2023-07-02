@@ -62,7 +62,7 @@ export default function Doctors() {
             <tbody>
               {doctors.map((element, index) => (
                 <tr key={element.id}>
-                  <td className="p-4 border-r">{index + 1 + (page - 1) * 0}</td>
+                  <td className="p-4 border-r">{index + 1 + (page - 1) * 20}</td>
                   <td className="p-4 border-r">
                     <Link to={`/doctors/${element.id}`}>{element.name}</Link>
                   </td>

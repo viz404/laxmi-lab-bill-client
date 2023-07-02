@@ -117,7 +117,7 @@ export default function Jobs() {
                     className={index + 1 < jobs.length ? "border-b" : ""}
                   >
                     <td className="p-4 border-r">
-                      {index + 1 + (page - 1) * 0}
+                      {index + 1 + (page - 1) * 20}
                     </td>
                     <td className="p-4 border-r">
                       <Link to={`/doctors/${element.id}`}>

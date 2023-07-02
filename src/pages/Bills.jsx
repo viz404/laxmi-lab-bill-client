@@ -53,7 +53,7 @@ export default function Bills() {
             <tbody>
               {bills.map((element, index) => (
                 <tr key={element.id}>
-                  <td className="p-4 border-r">{index + 1 + (page - 1) * 0}</td>
+                  <td className="p-4 border-r">{index + 1 + (page - 1) * 20}</td>
                   <td className="p-4 border-r">
                     {calculationHelpers.formatDate(element.createdAt)}
                   </td>
