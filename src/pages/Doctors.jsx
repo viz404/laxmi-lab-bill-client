@@ -27,7 +27,7 @@ export default function Doctors() {
   };
 
   return (
-    <main className="h-[95vh]">
+    <main className="min-h-[95vh]">
       <div className="flex justify-center gap-4 my-4">
         <SearchBar placeholder="Search doctor name" onClick={handleSearch} />
         <Link to="/doctors/new">

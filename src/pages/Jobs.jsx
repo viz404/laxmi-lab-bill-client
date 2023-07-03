@@ -48,7 +48,7 @@ export default function Jobs() {
     <main className="min-h-[95vh]">
       <div className=" flex items-start gap-5 px-4 mt-4">
         <div className="w-[30%]">
-          <div className="border-2 border-slate-400 dark:border rounded-lg overflow-hidden p-4 flex flex-col gap-4">
+          <div className="border-2 border-slate-400 dark:border rounded-lg overflow-hidden p-4 flex flex-col gap-4 max-h-[40rem]">
             <input
               type="text"
               placeholder="Enter doctor name"
@@ -172,7 +172,7 @@ export default function Jobs() {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-between w-full mt-4">
+          <div className="flex justify-between w-full my-4">
             <button
               className="bg-primary text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400"
               disabled={page == 1}
