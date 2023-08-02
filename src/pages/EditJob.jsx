@@ -119,6 +119,20 @@ export default function EditJob() {
     setJob({ ...defaultJob, works: [] });
   };
 
+  const handleDelete = async () => {
+    try {
+      if (!jobId) {
+        return;
+      }
+
+      await jobApis.deleteJob(jobId);
+      toast.success(`Job:${jobId} successfully deleted`);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   if (!doctorId) {
     return <DoctorSelectorPage navigateTo="/doctors/x/job" replace="x" />;
   }
@@ -299,7 +313,10 @@ export default function EditJob() {
               {jobId ? "Update" : "Submit"}
             </button>
             {jobId && (
-              <button className="bg-red-600 text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400">
+              <button
+                className="bg-red-600 text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400"
+                onClick={handleDelete}
+              >
                 Delete
               </button>
             )}

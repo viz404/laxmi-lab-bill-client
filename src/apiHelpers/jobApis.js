@@ -121,10 +121,31 @@ async function fetchJobsWithPrice({ doctor_id, from_date, to_date }) {
   }
 }
 
+async function deleteJob(id) {
+  try {
+    if (!id) throw new Error("No Id received");
+
+    const response = await fetch(`${Keys.baseUrl}/jobs/${id}`, {
+      method: "DELETE",
+    });
+
+    const data = await response.json();
+
+    if (data.status == false) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export default {
   addNewJob,
   fetchJob,
   updateJob,
   fetchJobs,
   fetchJobsWithPrice,
+  deleteJob
 };
