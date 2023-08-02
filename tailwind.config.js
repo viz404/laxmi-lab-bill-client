@@ -10,7 +10,7 @@ export default {
         },
         background: {
           light: "#fafbff",
-          dark: "#101e1e",
+          dark: "#050505",
         },
         primary: "#0f50f5",
         secondary: "#ffffff",
