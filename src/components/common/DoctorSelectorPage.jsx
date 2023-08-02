@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { doctorApis } from "../../apiHelpers";
 import { toast } from "react-toastify";
 
-export default function DoctorSelectorPage({ navigateTo, replace }) {
+export default function DoctorSelectorPage({ path, replace }) {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
-
   const timer = useRef();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function DoctorSelectorPage({ navigateTo, replace }) {
     event.preventDefault();
 
     const id = event.target.doctor.value;
-    navigate(navigateTo.replace(replace, id));
+    navigate(path.replace(replace, id));
   };
   return (
     <main className="h-[95vh]">

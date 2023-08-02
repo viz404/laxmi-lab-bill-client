@@ -80,7 +80,7 @@ export default function Jobs() {
             </div>
           </div>
           <div className="flex justify-center mt-4">
-            <Link to="/jobs/new">
+            <Link to="/new/job">
               <button className="bg-primary text-text-dark text-lg rounded-lg px-4 py-2 disabled:cursor-not-allowed disabled:bg-blue-400">
                 New Job
               </button>
@@ -126,7 +126,7 @@ export default function Jobs() {
                     </td>
                     <td className="p-4 border-r">
                       <Link
-                        to={`/doctors/${element.doctor.id}/job/${element.id}`}
+                        to={`/jobs/${element.id}`}
                       >
                         {element.patient_name}
                       </Link>
@@ -136,7 +136,7 @@ export default function Jobs() {
                     </td>
                     <td className="p-4 border-r">
                     <Link
-                        to={`/doctors/${element.doctor.id}/job/${element.id}`}
+                        to={`/jobs/${element.id}`}
                       >
                         {element.job_number}
                       </Link>

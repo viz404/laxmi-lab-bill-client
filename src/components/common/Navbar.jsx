@@ -9,7 +9,7 @@ export default function Navbar() {
 
     setIsDarkMode(localTheme == "dark");
 
-    if (localTheme == "dark") {
+    if (localTheme == "dark" || window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.classList.add("dark");
     }
   }, []);
@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex justify-between p-2 items-center text-text">
+    <nav className="flex justify-between p-5 items-center text-text">
       <p className="text-2xl font-bold">Shree Laxmi Dental Lab</p>
       <div className="flex gap-4 text-lg">
         <Link to="/">Jobs</Link>

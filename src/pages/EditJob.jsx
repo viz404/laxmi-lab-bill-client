@@ -21,26 +21,18 @@ export default function EditJob() {
   const [doctor, setDoctor] = useState(defaultDoctor);
   const [job, setJob] = useState(defaultJob);
 
-  const { doctorId, jobId } = useParams();
+  const { jobId, doctorId } = useParams();
+
+  // const { doctorId, jobId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (doctorId) {
-      doctorApis
-        .fetchDoctorById(doctorId)
-        .then((response) => setDoctor(response.data))
-        .catch((error) => toast.error(error.message));
+      updateDoctor(doctorId);
     }
 
     if (jobId) {
-      jobApis
-        .fetchJob(jobId)
-        .then((response) => {
-          let updatedDate = response.data.date.split("T")[0];
-          response.data.date = updatedDate;
-          setJob(response.data);
-        })
-        .catch((error) => toast.error(error.message));
+      updateJob(jobId);
     }
 
     return () => {
@@ -48,6 +40,25 @@ export default function EditJob() {
       setJob({ ...defaultJob, works: [] });
     };
   }, [doctorId, jobId]);
+
+  const updateJob = async (jobId) => {
+    try {
+      const response = await jobApis.fetchJob(jobId);
+      setJob(response.data);
+      updateDoctor(response.data.doctor.id);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const updateDoctor = async (doctorId) => {
+    try {
+      const response = await doctorApis.fetchDoctorById(doctorId);
+      setDoctor(response.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const handleFormInput = (event) => {
     const name = event.target.name;
@@ -119,8 +130,8 @@ export default function EditJob() {
     setJob({ ...defaultJob, works: [] });
   };
 
-  if (!doctorId) {
-    return <DoctorSelectorPage navigateTo="/doctors/x/job" replace="x" />;
+  if (!doctorId && !jobId) {
+    return <DoctorSelectorPage path="/new/job/x" replace="x" />;
   }
 
   return (

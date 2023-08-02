@@ -13,16 +13,13 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" Component={pages.Jobs} />
+          <Route path="/jobs/:jobId" Component={pages.EditJob} />
+          <Route path="/new/job/:doctorId" Component={pages.EditJob} />
+          <Route path="/new/job" Component={pages.EditJob} />
           <Route path="/doctors" Component={pages.Doctors} />
           <Route path="/doctors/new" Component={pages.EditDoctor} />
           <Route path="/doctors/:doctorId" Component={pages.EditDoctor} />
-          <Route path="/doctors/:doctorId/job" Component={pages.EditJob} />
-          <Route
-            path="/doctors/:doctorId/job/:jobId"
-            Component={pages.EditJob}
-          />
           <Route path="/doctors/:doctorId/bill" Component={pages.EditBill} />
-          <Route path="/jobs/new" Component={pages.EditJob} />
           <Route path="/account" Component={pages.Account} />
           <Route path="/account/:doctorId" Component={pages.Account} />
           <Route path="/bills" Component={pages.Bills} />
